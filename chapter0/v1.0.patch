@@ -1,0 +1,22 @@
+diff --git a/chapter0/main.c b/chapter0/main.c
+index 1f39d3d..29a67f4 100644
+--- a/chapter0/main.c
++++ b/chapter0/main.c
+@@ -1,7 +1,17 @@
+ #include <stdio.h>
++#include "add_minus.h"
+ 
+ int main(void)
+ {
++	int rst;
++
+     printf("Hello Cacu!\n");
++
++	rst = add(3,2);
++	printf("3 + 2 = %d\n",rst);
++
++	rst = minus(3,2);
++	printf("3 - 2 = %d\n",rst);
++
+     return 0;
+ }
