@@ -46,6 +46,7 @@ makefile：make工程文件。
 ```
 cd ~/Code/
 git clone https://github.com/darmac/make_example.git
+cd make_example/chapter1
 ```
 #### 5.1.2 编写 main.c 源文件
 实验中将用“hello world！”程序来验证 makefile 的基本规则，因此先编写一段小程序 main.c 。
@@ -160,18 +161,29 @@ touch middle_file
 mv middle_file dft_test
 ```
 当前文件夹下会多出一个 dft_test 文件。
+
+实验过程如下图所示：
+![5.1A](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498369568425.png/wm)
+![5.1B](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498369574761.png/wm)
+![5.1C](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498369586221.png/wm)
+
 ### 5.2 makefile 时间戳检验测试。
 ### 5.2.1 文件的时间戳检测规则
 make在执行命令时会检测依赖文件的时间戳：
+
 1. 若依赖文件不存在或者依赖文件的时间戳比目标文件新，则执行依赖文件对应的命令。
 2. 若依赖文件的时间戳比目标文件老，则忽略依赖文件对应的命令。
+
 #### 5.2.2 文件时间戳测试
 还原 makefile 文件，并打上 v1.0 补丁：
+
 ```
 git checkout makefile
 patch -p2 < v1.0.patch
 ```
+
 此时 makefile 文件内容如下：
+
 ```
 #this is a makefile example
 
@@ -215,6 +227,10 @@ gcc -o main main.o
 ```
 可见 make 分别执行了 testb 和 main 两条规则，main.o 和 testa 规则对应的命令没有被执行到。
 这验证了 5.2.1 中说明的第二条特性。
+
+实验过程如下图所示：
+![此处输入图片的描述](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498369790588.png/wm)
+
 ### 5.3 实验 makefile 依赖文件的执行顺序。
 从上述实验可以看出 make 目标文件的依赖文件是按照从左到右的顺序生成的。
 对应规则“main”：
@@ -238,8 +254,8 @@ make
 ```
 终端有如下打印：
 ```
-touch testa
 touch testb
+touch testa
 gcc -c main.c
 gcc -o main main.o
 ```
@@ -320,7 +336,6 @@ make
 ```
 rm clean main.o testa testb
 rm: cannot remove 'clean': No such file or directory
-makefile:18: recipe for target 'clean' failed
 make: *** [clean] Error 1
 ```
 原来是因为 depen 变量指明 clean 为依赖项，因此 rm 命令也会试图删除 clean 文件时出现错误。
@@ -409,6 +424,15 @@ gcc -c main.c
 gcc -o main main.o
 ```
 我们已经可以随心所欲的定制 main 文件的依赖规则了。
+
+实验过程如下图所示：
+![5.4A](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498374953580.png/wm)
+![5.4B](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498374964366.png/wm)
+![5.4C](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498374973586.png/wm)
+![5.4D](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498374980464.png/wm)
+![5.4E](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498374986872.png/wm)
+![5.4F](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498374992596.png/wm)
+![5.4G](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498374998100.png/wm)
 ### 5.5 makefile 文件命名及隐式规则。
 #### 5.5.1 make 默认调用的文件名
 迄今为止，我们写的自动编译规则都放在 makefile 中，通过实验也可以明确了解到 make 工具会自动调用 makefile 文件。
@@ -479,6 +503,9 @@ this is Makefile
 ```
 说明 Makefile 属于三者中优先级最的文件。
 *建议：推荐以 makefile 或者 Makefile 进行命名，而不使用 GNUmakefile，因为 GNUmakefile 只能被 GNU 的 make 工具识别到。*
+
+实验过程如下图所示：
+![5.5](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498375346301.png/wm)
 ### 5.6 编写一段程序的 makefile 文件。
 #### 5.6.1 小型计算程序说明
 现在我们已经掌握了 makefile 的基本规则，可以尝试自己写一个 makefile 进行工程管理。
@@ -505,12 +532,12 @@ patch -p2 < v3.0.patch
 export LD_LIBRARY_PATH=$PWD
 ```
 #### 5.6.2 makefile 文件示例
-请参照 5.6.1 的要求完成 makefile 文件，下面给出示例样本：
+请参照 5.6.1 的要求完成 makefile 文件，完成后可参考文件 makefile_for_chapter0 的内容：
 ```
 # this is a chapter0 makefile
 .PHONY:all clean depen
 
-depen=clean main.o add_minus.o libadd_minus.a multi_div.o libmulti_div.so
+depen=clean main.o add_minus.o libadd_minus.a libmulti_div.so
 
 all:$(depen)
     gcc -o main main.o -L./ -ladd_minus -lmulti_div
@@ -530,11 +557,15 @@ libmulti_div.so:
 clean:
     -rm $(depen)
 ```
+
+实验过程如下图所示：
+![5.6](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498375678408.png/wm)
+
 ## 六、实验总结
 本实验测试了 makefile 的基础规则和一些简单的特性。
 
 ## 七、课后习题
-无
+请自行设计一段包含多个源文件的小型工程，并使用 makefile 进行管理。
 
 ## 八、参考链接
 无
