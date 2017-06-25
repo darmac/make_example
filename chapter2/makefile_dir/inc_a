@@ -1,0 +1,3 @@
+#this is a include file for makefile
+
+vari_c="vari_c from inc_a"
