@@ -1,0 +1,6 @@
+#this is a makefile reload example part_b
+
+.PHONY:intro
+
+intro:
+	@echo "Hello, this is BMake"
