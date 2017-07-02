@@ -1,17 +1,13 @@
 # 编译,链接基础实验
 
 ## 一、实验介绍
-本实验用于演示 GNU GCC 编译和链接的基本方法,通过编译,链接,静态链接,动态链接让用户学习和理解 GCC 的使用方式.
+本实验用于演示 GNU GCC 编译和链接的基本方法,通过编译,链接,静态链接,动态链接让用户学习和理解 GCC 的使用方式。
 
 ### 1.1 实验内容
 1.编写基本代码
-
 2.对代码进行编译，链接，并执行查看效果
-
 3.添加代码扩展功能，并进行静态链接
-
 4.添加代码扩展功能,并进行动态链接
-
 5.使用静态+动态的混合链接
 
 ### 1.2 实验知识点 
@@ -110,7 +106,7 @@ file main
 这正是我们main.c里希望打印的语句，说明文件被正常执行。
 感兴趣的同学也可以使用readelf工具查看main文件的更多细节。
 实验截图如下:
-![实验5.1截图](http://img.blog.csdn.net/20170624082829314?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGFybWFj/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![实验5.1](https://dn-anything-about-doc.qbox.me/document-uid66754labid3041timestamp1498268760193.png/wm)
 
 ### 5.2 为 Cacu 增加加减法并链接执行
 #### 5.2.1 添加 add_minus.h 文件，声明 add() 和 minus()
@@ -207,7 +203,7 @@ Hello Cacu!
 3 - 2 = 1
 ```
 说明程序正常执行，实验截图如下：
-![实验5.2](http://img.blog.csdn.net/20170624084422860?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGFybWFj/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![实验5.2](https://dn-anything-about-doc.qbox.me/document-uid66754labid3041timestamp1498268787892.png/wm)
 
 ### 5.3 将 Cacu 的加减法做成静态库，并静态链接执行
 #### 5.3.1 重新编译 add_minus.c 生成静态库文件
@@ -247,7 +243,7 @@ Hello Cacu!
 ```
 
 说明程序得到正确执行，实验截图如下：
-![实验5.3](http://img.blog.csdn.net/20170624085249896?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGFybWFj/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![实验5.3](https://dn-anything-about-doc.qbox.me/document-uid66754labid3041timestamp1498268816463.png/wm)
 
 ### 5.4 为 Cacu 增加乘除法,做成动态库,并动态执行
 #### 5.4.1 添加 multi_div.h 文件,声明 multi() 和 div()
@@ -362,7 +358,8 @@ Hello Cacu!
 ```
 
 说明程序得到正确执行，实验截图如下：
-![实验5.4](http://img.blog.csdn.net/20170624090649356?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGFybWFj/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![实验5.4](https://dn-anything-about-doc.qbox.me/document-uid66754labid3041timestamp1498268841055.png/wm)
+
 ### 5.5 将 Cacu 的动态库和静态库做混合链接并测试
 #### 5.5.1 修改 main.c 加回加减运算，并编译
 现在测试完成的加减乘除运算，先还原 main.c 文件：
@@ -397,7 +394,7 @@ Hello Cacu!
 6 / 2 = 3
 ```
 说明程序得到正确执行，实验截图如下：
-![实验5.5](http://img.blog.csdn.net/20170624090927949?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGFybWFj/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![实验5.5](https://dn-anything-about-doc.qbox.me/document-uid66754labid3041timestamp1498268860207.png/wm)
 
 ## 六、实验总结
 本实验说明了 GCC 基本编译，链接的方法。

@@ -1,23 +1,24 @@
 ## 一、实验介绍
-本实验介绍 makefile 的基础规则。
+本实验在上一个实验的基础上，继续深入介绍 makefile 的基础规则。
 
 ### 1.1 实验内容
-1. makefile 基本规则。
-2. makefile 时间戳检验测试。
-3. 验证 makefile 依赖文件的执行顺序。
-4. 变量，PHONY和“-”功能测试。
-5. makefile 文件命名及隐式规则。
-6. 编写一段程序的 makefile 文件。
+1. 验证 makefile 的自动推导规则。
+2. 验证 makefile include 文件规则。
+3. 验证 makefile 环境变量 MAKEFILES，MAKEFILE_LIST 和 .VARIABLES 的作用。
+4. 测试 makefile 的重载。
+
 
 ### 1.2 实验知识点 
-1. makefile 的基本编译规则。
-2. make 更新目标的依据：时间戳。
-3. makefile 目标依赖的执行顺序为从左至右。
-4. makefile 变量的赋值与使用。
-5. .PHONY的作用：声明伪目标。
-6. “-”的作用：让make忽略该命令的错误。
-7. make搜寻makefile的命名规则："GNUmakefile" > "makefile" > "Makefile"。
-8. makefile不存在的情况下也可以利用make的隐式规则实现代码编译。
+1. makefile 文件不存在的情况下也可以利用make的自动推导规则实现代码编译。
+2. include 指示符可以让 make 读入其指定的文件。
+3. include 指定文件时可以支持通配符。
+4. include 的默认查找路径：/usr/gnu/include，/usr/local/include，/usr/include。
+5. include 可以用 -I 选项指定查找路径。
+6. 变量 MAKEFILES 可以指定需要读入的 makefile 文件。
+7. 变量 MAKEFILES 的使用限制：不可作为终极目标。
+8. 变量 MAKEFILE_LIST 的作用：将“MAKEFILES”，命令行指定，默认 makefile 文件及“include”指定的文件名都记录下来。
+9. makefile 重载另一个 makefile 的限制条件：规则名称不得重名。
+10. makefile 的“所有匹配模式”的使用。
 
 ### 1.3 实验环境
 Ubuntu系统, GNU gcc工具，GNU make工具
@@ -29,326 +30,299 @@ Ubuntu系统, GNU gcc工具，GNU make工具
 git clone https://github.com/darmac/make_example.git
 
 ## 二、实验原理
-测试 makefile 的基础规则和一些简单的特性。
+依据 makefile 的基本规则设计相应的正反示例，验证规则。
 
 ## 三、开发准备
 进入实验楼课程即可。
 
 ## 四、项目文件结构
-main.c：主要的 C 语言源代码。
 makefile：make工程文件。
 
 ## 五、实验步骤
 
-### 5.1 makefile 基本规则。
+### 5.1 makefile 的自动推导规则。
 #### 5.1.1 抓取源代码
 使用如下 cmd 获取 GitHub 源代码：
 ```
 cd ~/Code/
 git clone https://github.com/darmac/make_example.git
-cd make_example/chapter1
+cd make_example/chapter2
 ```
-#### 5.1.2 编写 main.c 源文件
-实验中将用“hello world！”程序来验证 makefile 的基本规则，因此先编写一段小程序 main.c 。
-源代码中已有 main.c 文件，代码如下：
+#### 5.1.2 makefile 自动推导规则说明
+makefile 有一套隐含的自动推导规则：
+1. 对于 xxx.o 目标会默认使用命令“cc -c xxx.c -o xxx.o”来进行编译。
+2. 对于 xxx 目标会默认使用命令“cc xxx.o -o xxx”
+
+下面用两个小实验来验证 makefile 的自动推导规则。
+
+#### 5.1.3 编写 main.c 源文件
+代码中已有 main.c 文件，内容如下：
 ```
 #include <stdio.h>
 
 int main(void)
 {
-    printf("hello world!\n");
-    return 0;
+        printf("Hello world!\n");
+        return 0;
 }
 ```
-#### 5.1.3 熟悉 makefile 的基础规则
-makefile 是为了自动管理编译、链接流程而存在的。
-makefile 的基本书写规则如下：
-```
-TARGET... : PREREQUISITES...
-COMMAND
-```
-TARGET：规则目标,可以为文件名或动作名
-PREREQUISITES：规则依赖
-COMMAND：命令行,必须以[TAB]开始,由shell执行
-
-#### 5.1.4 编写简单的 makefile 文件管理 main.c 的编译
-源代码中已有 makefile 文件，内容如下：
-```
-  1 #this is a makefile example
-  2 
-  3 main:main.o
-  4     gcc -o main main.o
-  5 
-  6 main.o:main.c
-  7     gcc -c main.c
-```
-line1：“#”为注释符号，后面接注释文本。
-line3 - line4：声明目标 main 的依赖文件 main.o 及链接 command。
-line6 - line7：声明目标 main.o 的编译command。
-
-#### 5.1.5 测试make命令
-make 工具的基本使用方法为：make TARGET 。
-在终端输入命令：
+#### 5.1.4 使用 make main.o 验证规则
+确认当前目录下没有 makefile 类型的文件。
+输入如下命令：
 ```
 make main.o
 ```
-可以看见shell会执行：
+终端打印：
 ```
-gcc -c main.c
+cc    -c -o main.o main.c
 ```
-接下来输入：
-```
-make main
-```
-可以看见shell执行：
-```
-gcc -o main main.o
-```
-执行main文件：
-```
-./main
-```
-终端会打印：
-```
-hello world!
-```
-说明程序正常执行。
-#### 5.1.6 自动化编译终极目标
-清除掉 main.o 和 main 文件：
-```
-rm main.o main
-```
-由于我们的“终极”目标是 main 文件，实际上我们并不关心中间目标“main.o”。
-现在尝试只运行一次 make 编译出我们需要的终极目标。
+说明 make 自动使用 cc -c 命令生成了 main.o 文件。
+#### 5.1.5 使用 make main 验证规则
+接下来验证另一条规则，输入如下命令：
 ```
 make main
 ```
-终端会打印出 make 实际执行的命令：
+终端打印：
 ```
-gcc -c main.c
-gcc -o main main.o
+cc   main.o   -o main
 ```
-可见 make 还是先生成 makefile 中 main 的依赖文件 main.o，再链接生成 main 文件。
-#### 5.1.7 让 make自动寻找目标
-再次清除掉 main.o 和 main 文件：
+说明 make 自动使用 cc 命令生成了 main 文件。
+由于 main.o 文件是上一个小实验生成的，现在我们删掉它和main文件：
 ```
 rm main.o main
 ```
-并执行 make，但不输入目标：
+再次输入：
+```
+make main
+```
+终端打印：
+```
+cc     main.c   -o main
+```
+这说明当 main.o 不存在时，make 会尝试直接使用源文件编译来生成目标文件。
+
+实验过程如下图所示：
+![5.1](https://dn-anything-about-doc.qbox.me/document-uid66754labid3113timestamp1498954083377.png/wm)
+
+### 5.2 makefile include 使用规则
+makefile 中可以使用 include 指令来包含另一个文件。
+当 make 识别到 include 指令时，会暂停读入当前的 makefile 文件，并转而读入 include 指定的文件，之后再继续读取本文件的剩余内容。
+
+#### 5.2.1 编写 makefile 需要包含的文件
+makefile_dir 目录下有一份需要被包含的文件 inc_a，文件内容如下：
+```
+#this is a include file for makefile
+
+vari_c="vari_c from inc_a"
+```
+
+#### 5.2.2 编写基本的 makefile 文件
+拷贝 makefile_dir 目录下的 makefile 文件到当前目录：
+```
+cp makefile_dir/makefile ./
+```
+makefile 内容如下：
+```
+# this is a basic makefile
+
+.PHONY:all clean
+
+vari_a="original vari a"
+vari_b="original vari b"
+
+include ./makefile_dir/inc_a
+
+all:
+        @echo $(vari_a)
+        @echo $(vari_b)
+        @echo $(vari_c)
+
+clean:
+```
+#### 5.2.3 测试 make 能否正常工作
+执行指令：
 ```
 make
 ```
-终端打印出 make 的执行命令还是一样：
+终端打印：
 ```
-gcc -c main.c
-gcc -o main main.o
+original vari a
+original vari b
+vari_c from inc_a
 ```
-这是因为默认情况下，make 会以第一条规则作为其“终极目标”。
-现在我们尝试修改 makefile，在目标 “main”之前再增加一条规则：
+从打印信息可以看出来 makefile 已经成功包含了 inc_a 文件，并且正确获取到了 vari_c 变量。
+值得一提的是 include 指示符所指示的文件名可以是任何 shell 能够识别的文件名，这表明 include 还可以支持包含通配符的文件名。我们将在下面的实验中进行验证。
+#### 5.2.4 新建另一个被包含文件
+makefile_dir 目录下有一份需要被包含的文件 inc_b，文件内容如下：
 ```
-dft_test:middle_file
-	mv middle_file dft_test
-middle_file:
-	touch middle_file
+#this is a include file for makefile
+
+vari_d="vari_d from inc_b"
+```
+
+#### 5.2.5 使用通配符让 makefile 包含匹配的文件
+修改 makefile，使用通配符同时包含 inc_a 和 inc_b 文件。
+修改后的 makefile 内容如下：
+```
+# this is a basic makefile
+
+.PHONY:all clean
+
+vari_a="original vari a"
+vari_b="original vari b"
+
+include ./makefile_dir/inc_*
+
+all:
+        @echo $(vari_a)
+        @echo $(vari_b)
+        @echo $(vari_c)
+        @echo $(vari_d)
+
+clean:
 ```
 执行：
 ```
 make
 ```
-可以看见终端印出：
+终端打印出：
 ```
-touch middle_file
-mv middle_file dft_test
+original vari a
+original vari b
+vari_c from inc_a
+vari_d from inc_b
 ```
-当前文件夹下会多出一个 dft_test 文件。
+说明文件 inc_a 和 inc_b 被同时包含到 makefile 中。
+
+#### 5.2.6 makefile include 文件的查找路径
+当 include 指示符包含的文件不包含绝对路径，且在当前路径下也无法寻找到时，make 会按以下优先级寻找文件：
+1. -I 指定的目录
+2. /usr/gnu/include
+3. /usr/local/include
+4. /usr/include
+
+#### 5.2.7 指定 makefile 的 include 路径
+修改 makefile，不再指定 inc_a 和 inc_b 的相对路径：
+
+再执行一次 make：
+```
+make
+```
+终端打印：
+```
+makefile:8: inc_*: No such file or directory
+make: *** No rule to make target 'inc_*'.  Stop.
+```
+可以看到 makefile 无法找到 inc_a 和 inc_b 文件。
+使用“-I”命令来指定搜寻路径：
+```
+make -I ./makefile_dir/
+```
+终端依然打印：
+```
+makefile:8: inc_*: No such file or directory
+make: *** No rule to make target 'inc_*'.  Stop.
+```
+看起来 make 在搜寻 “inc_*” 档案。
+修改 makefile ，将 “inc_*” 改为 "inc_a" "inc_b"
+```
+include inc_a inc_b
+```
+执行：
+```
+make -I ./makefile_dir/
+```
+终端打印：
+```
+original vari a
+original vari b
+vari_c from inc_a
+vari_d from inc_b
+```
+可见不使用通配符的情况下 include 配合 -I 选项才能得到预期效果。
+
+#### 5.2.8 makefile include 的处理细节
+下面再研究一下 make 对 include 指示符的处理细节。
+前面提到 make 读入 makefile 时遇见 include 指示符会暂停读入当前文件，转而读入 include 指定的文件，之后才继续读入当前文件。
+拷贝文件 makefile_dir/makefile_b 到当前目录并命名为 makefile：
+```
+cp makefile_dir/makefile_b ./makefile
+```
+查看 makefile 的内容：
+```
+#this makefile is test for include process
+
+.PHONY:all clean
+
+vari_a="vari_a @ 1st"
+
+include ./makefile_dir/c_inc
+
+vari_a += " @2nd ..."
+
+all:
+        @echo $(vari_a)
+
+clean:
+
+```
+可以看出 makefile 是先设定 vari_a 变量，再包含 c_inc 文件，之后再修改 vari_a 变量。
+查看 c_inc 文件内容：
+```
+#this is a include file for include process
+
+vari_a="vari_a from c_inc"
+```
+可以看出 c_inc 文件中也设定了 vari_a 变量。
+执行 make 看最终 vari_a 变量定义为什么：
+```
+make
+```
+终端打印：
+```
+vari_a from c_inc  @2nd ...
+```
+这说明 vari_a 在 include 过程中被修改掉，并在其后添加了字串 " @2nd ..."，结果与预期中 make 处理 include 指示符的行为一致。
 
 实验过程如下图所示：
-![5.1A](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498369568425.png/wm)
-![5.1B](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498369574761.png/wm)
-![5.1C](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498369586221.png/wm)
+![5.2A](https://dn-anything-about-doc.qbox.me/document-uid66754labid3113timestamp1498954124910.png/wm)
+![5.2B](https://dn-anything-about-doc.qbox.me/document-uid66754labid3113timestamp1498954143968.png/wm)
+![5.2C](https://dn-anything-about-doc.qbox.me/document-uid66754labid3113timestamp1498954158339.png/wm)
+![5.2D](https://dn-anything-about-doc.qbox.me/document-uid66754labid3113timestamp1498954210478.png/wm)
+![5.2E](https://dn-anything-about-doc.qbox.me/document-uid66754labid3113timestamp1498954223804.png/wm)
 
-### 5.2 makefile 时间戳检验测试。
-### 5.2.1 文件的时间戳检测规则
-make在执行命令时会检测依赖文件的时间戳：
-
-1. 若依赖文件不存在或者依赖文件的时间戳比目标文件新，则执行依赖文件对应的命令。
-2. 若依赖文件的时间戳比目标文件老，则忽略依赖文件对应的命令。
-
-#### 5.2.2 文件时间戳测试
-还原 makefile 文件，并打上 v1.0 补丁：
-
+### 5.3 makefile 的几个通用变量测试
+#### 5.3.1 测试 MAKEFILES 变量指定的文件是否能正确被包含
+MAKEFILES 环境变量有定义时，它起到类似于include的作用。
+该变量在被展开时以空格作为文件名的分隔符。
+删掉当前 makefile 文件：
 ```
-git checkout makefile
-patch -p2 < v1.0.patch
+rm makefile
 ```
-
-此时 makefile 文件内容如下：
-
+新建 makefile 内容如下：
 ```
-#this is a makefile example
+#this makefile is test for include process
 
-main:main.o testa testb
-        gcc -o main main.o
+.PHONY:all clean
 
-main.o:main.c
-        gcc -c main.c
+vari_a += " 2nd vari..."
 
-testa:
-        touch testa
+all:
+        @echo $(vari_a)
 
-testb:
-        touch testb
-```
-清除可能存在的中间文件：
-```
-rm main.o testa testb
+clean:
 ```
 执行 make：
 ```
 make
 ```
-终端会输出：
-```
-gcc -c main.c
-touch testa
-touch testb
-gcc -o main main.o
-```
-make 会分别生成 main.o testa testb 这三个中间文件。这验证了 5.2.1 中说明的第一条特性。
-现在删除 testb 文件，再看看 make 会如何执行：
-```
-rm testb
-make
-```
 终端打印：
 ```
-touch testb
-gcc -o main main.o
+ 2nd vari...
 ```
-可见 make 分别执行了 testb 和 main 两条规则，main.o 和 testa 规则对应的命令没有被执行到。
-这验证了 5.2.1 中说明的第二条特性。
-
-实验过程如下图所示：
-![此处输入图片的描述](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498369790588.png/wm)
-
-### 5.3 实验 makefile 依赖文件的执行顺序。
-从上述实验可以看出 make 目标文件的依赖文件是按照从左到右的顺序生成的。
-对应规则“main”：
+增加环境变量 MAKEFILES：
 ```
-main:main.o testa testb
-    gcc -o main main.o
-```
-make 按照顺序分别执行 main.o testa testb 所对应的规则。
-现在我们调换 main.o testa testb 的顺序。
-修改 makefile 文件的 main 规则的依赖顺序：
-```
-  3 main:testb testa main.o
-```
-清除上次编译过程中产生的中间文件：
-```
-rm main.o testa testb
-```
-执行 make：
-```
-make
-```
-终端有如下打印：
-```
-touch testb
-touch testa
-gcc -c main.c
-gcc -o main main.o
-```
-可见 make 的确是按照从左到右的规则分别执行依赖文件对应的命令。
-### 5.4 变量，PHONY和“-”功能测试。
-#### 5.4.1 makefile 的变量定义
-makefile 也可以使用变量，它类似于 C 语言中的宏定义。
-变量可以直接使用“vari=string”的写法来定义，并以“$(vari)”格式来使用。
-我们用变量来定义目标的依赖项，使 makefile 保持良好的扩展性。
-#### 5.4.2 在 makefile 中添加变量并使用
-先还原 makefile 文件到 v1.0 补丁，并清除上一次编译的中间文件。
-```
-git checkout makefile
-patch -p2 < v1.0.patch
-rm main.o testa testb
-```
-在目标 “main”之前定义一个变量“depen”：
-```
-depen=main.o testa testb
-```
-修改 main 目标的依赖项声明：
-```
-main:$(depen)
-```
-执行 make ：
-```
-make
-```
-终端打印：
-```
-gcc -c main.c
-touch testa
-touch testb
-gcc -o main main.o
-```
-可见 makefile 还是能够正常执行。
-之后 main 目标的依赖项有变化时，只需修改“depen”变量即可。
-
-#### 5.4.3 为 makefile 添加 clean 规则
-每次测试 makefile 的时候我们都要清除中间文件，为了使得编译工程更加自动化，我们在 makefile 中添加规则让其自动清除。
-在 makefile 中修改 depen 变量，增加 clean 依赖：
-```
-depen=clean main.o testa testb
-```
-增加 clean 规则及其命令：
-```
-
-clean:
-    rm main.o testa testb
-```
-当前目录下是存在 main.o testa testb 三个中间文件的，执行 make 看看效果：
-```
-make
-```
-可以看见终端打印：
-```
-rm main.o testa testb
-gcc -c main.c
-touch testa
-touch testb
-gcc -o main main.o
-```
-说明现在 make 会先清除掉上次编译的中间文件并重建。
-
-#### 5.4.4 让 clean 规则也使用变量
-makefile 中定义了 depen 变量来声明各个依赖项。
-但新增的 clean 规则没有使用这个变量，这会让 makefile 的维护产生麻烦：当依赖项变更的时候需要同时修改 depen 变量和 clean 规则。
-因此，我们让 clean 规则的 rm 命令也使用 depen 变量。
-修改 clean 规则下的 rm 命令行：
-```
-rm $(depen)
-```
-再次执行 make 猜猜会发生什么？
-```
-make
-```
-终端打印：
-```
-rm clean main.o testa testb
-rm: cannot remove 'clean': No such file or directory
-make: *** [clean] Error 1
-```
-原来是因为 depen 变量指明 clean 为依赖项，因此 rm 命令也会试图删除 clean 文件时出现错误。
-而 make 在执行命令行过程中出现错误后会退出执行。
-#### 5.4.5 让 clean 命令出错后 make 也能继续执行
-rm 某个不存在的文件是很常见的错误，在大部分情况下我们也不将其真正作为错误来看待。
-如何让 make 忽略这个错误呢？
-我们需要用到“-”符号。
-“-”：让 make 忽略该指令的错误。
-修改 makefile 中的 clean 规则：
-```
-clean:
-    -rm $(depen)
+export MAKEFILES=./makefile_dir/c_inc
 ```
 再次执行 make：
 ```
@@ -356,41 +330,28 @@ make
 ```
 终端打印：
 ```
-rm clean main.o testa testb
-rm: cannot remove 'clean': No such file or directory
-rm: cannot remove 'main.o': No such file or directory
-rm: cannot remove 'testa': No such file or directory
-rm: cannot remove 'testb': No such file or directory
-makefile:18: recipe for target 'clean' failed
-make: [clean] Error 1 (ignored)
-gcc -c main.c
-touch testa
-touch testb
-gcc -o main main.o
+vari_a from c_inc  2nd vari...
 ```
-看起来效果不错，虽然 rm 指令报出错误，make 却依然可以生成我们的终极目标：main 文件。
+可见 make 按照 MAKEFILES 的文件列表载入了 makefile_dir/c_inc 文件。
 
-#### 5.4.6 使用伪目标
-前面提到 makefile 依赖文件的时间戳若比目标文件旧，则对应规则的命令不会执行。
-我们现在定义了一个 clean 规则，但如果文件夹下正好有一个 clean 文件会发生什么样的冲突呢？
-先在当前目录下新建一个 clean 文件：
+#### 5.3.2 测试 MAKEFILES 变量的使用限制
+需要注意：
+1. MAKEFILES 指定文件的目标不能作为 make 的终极目标。
+2. MAKEFILES 是环境变量，它对所有的 makefile 都会产生影响，因此尽量不要使用该变量。
+
+新建一个文件 aim_b_file，内容如下：
 ```
-touch clean
+#this is aim_b file
+
+.PHONY:aim_b
+
+aim_b:
+        @echo "now we exe aim_b"
 ```
-再执行 make 命令：
+此文件定一个 aim_b 规则，执行此规则时打印“now we exe aim_b”。
+修改 MAKEFILES 变量：
 ```
-make
-```
-终端打印：
-```
-gcc -o main main.o
-```
-看来由于 clean 文件已经存在，make 不会再执行 clean 目标对应的规则了。
-但实际上 clean 是一个伪目标，我们不期望它会与真正 clean 文件有任何关联。
-此时需要使用“.PHONY”来声明伪目标。
-修改 makefile 在变量 depen 之前加入一条伪目标声明：
-```
-.PHONY: clean
+export MAKEFILES=./aim_b_file
 ```
 执行 make：
 ```
@@ -398,174 +359,206 @@ make
 ```
 终端打印：
 ```
-rm clean main.o testa testb
-gcc -c main.c
-touch testa
-touch testb
-gcc -o main main.o
+ 2nd vari...
 ```
-makefile 又能得到正常执行了，所有流程都符合我们的预期。
-现在减除掉依赖项 testa testb，因为实际上 main 文件并不需要用到这两个文件。
-修改 makefile 的 depen 变量：
+可见 make 虽然先包含 aim_b_file 文件，但依然以 makefile 中的 all 作为最终目标。
+我们再来验证 aim_b 规则是否已经被正常解析到，修改 makefile，为 all 增加一条依赖：
 ```
-depen=clean main.o
+all: aim_b
 ```
+这样，执行 all 规则之前必须先执行 aim_b 规则。
 执行 make：
 ```
 make
 ```
 终端打印：
 ```
-rm clean main.o
-rm: cannot remove 'clean': No such file or directory
-makefile:20: recipe for target 'clean' failed
-make: [clean] Error 1 (ignored)
-gcc -c main.c
-gcc -o main main.o
+now we exe aim_b
+ 2nd vari...
 ```
-我们已经可以随心所欲的定制 main 文件的依赖规则了。
-
-实验过程如下图所示：
-![5.4A](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498374953580.png/wm)
-![5.4B](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498374964366.png/wm)
-![5.4C](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498374973586.png/wm)
-![5.4D](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498374980464.png/wm)
-![5.4E](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498374986872.png/wm)
-![5.4F](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498374992596.png/wm)
-![5.4G](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498374998100.png/wm)
-### 5.5 makefile 文件命名及隐式规则。
-#### 5.5.1 make 默认调用的文件名
-迄今为止，我们写的自动编译规则都放在 makefile 中，通过实验也可以明确了解到 make 工具会自动调用 makefile 文件。
-是否文件名必须命名为“makefile”呢？
-不是的，GNU make 会按默认的优先级查找当前文件夹的文件，查找的优先级为：
-“GNUmakefile”> “makefile”> “Makefile”
-#### 5.5.2 测试 make 调用的文件优先级
-新建 GNUmakefile 文件，添加以下内容：
+再执行：
 ```
-#this is a GNUmakefile
+make aim_b
+```
+终端打印：
+```
+now we exe aim_b
+```
+“make” 和 “make aim_b” 的打印都说明 aim_b 已经能够被正确执行，但它的确不会作为默认的目标规则，只有明确指定此规则时才会执行其对应的命令。
 
-.PHONY: all
+#### 5.3.3 打印 MAKEFILE_LIST 
+所有 MAKEFILES 指定的文件名，命令行指定的文件名，默认 makefile 文件以及 include 指定的文件名都记录下来。
+当前路径下总共有 ./aim_b_file，./makefile，./makefile_dir/inc_a，./makefile_dir/inc_b，./makefile_dir/c_inc 这5个文件。
+现在我们使用不同的方式将它们包含进来。
+./aim_b_file 已经被包含在 MAKEFILES 变量中。
+./makefile 会在执行 make 时被自动调用。
+修改 makefile 用 include 指示符包含文件./makefile_dir/inc_a 和./makefile_dir/inc_b 。
+并在 all 目标中打印 MAKEFILE_LIST 变量，修改后的 makefile 内容如下：
+```
+#this makefile is test for include process
+
+.PHONY:all clean
+
+include ./makefile_dir/inc_a ./makefile_dir/inc_b
+
+vari_a += " 2nd vari..."
 
 all:
-        @echo "this is GNUmakefile"
-```
-新建 Makefile 文件，添加以下内容：
-```
-#this is a Makefile
-
-.PHONY: all
-
-all:
-        @echo "this is Makefile"
-```
-查看以下当前目录文件，现在应该有三个 makefile 能够识别到的文件。
-```
-ls *file* -hl
-```
-终端打印：
-```
--rw-r--r-- 1 root root  71 Jun 25 12:22 GNUmakefile
--rw-r--r-- 1 root root 192 Jun 25 09:18 makefile
--rw-r--r-- 1 root root  65 Jun 25 12:23 Makefile
-```
-执行一次 make 看看哪个文件被调用：
-```
-make
-```
-终端打印：
-```
-this is GNUmakefile
-```
-说明 make 调用的是 GNUmakefile。
-删除 GNUmakefile 再执行一次 make：
-```
-rm GNUmakefile
-make
-```
-终端打印：
-```
-rm clean main.o
-rm: cannot remove 'clean': No such file or directory
-makefile:20: recipe for target 'clean' failed
-make: [clean] Error 1 (ignored)
-gcc -c main.c
-gcc -o main main.o
-```
-说明 make 调用的是 makefile。
-删除 makefile，执行 make：
-```
-rm makefile
-make
-```
-终端打印：
-```
-this is Makefile
-```
-说明 Makefile 属于三者中优先级最的文件。
-*建议：推荐以 makefile 或者 Makefile 进行命名，而不使用 GNUmakefile，因为 GNUmakefile 只能被 GNU 的 make 工具识别到。*
-
-实验过程如下图所示：
-![5.5](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498375346301.png/wm)
-### 5.6 编写一段程序的 makefile 文件。
-#### 5.6.1 小型计算程序说明
-现在我们已经掌握了 makefile 的基本规则，可以尝试自己写一个 makefile 进行工程管理。
-在 make_example/chapter0 目录下有一段简单的计算器示例程序，现在要为它建立一个 makefile 文件。
-切换到 chapter0 目录，查看目录下的文件：
-```
-cd ../chapter0
-ls
-```
-终端打印：
-```
-add_minus.c  add_minus.h main.c  multi_div.c  multi_div.h  readme.md  v1.0.patch  v2.0.patch  v3.0.patch
-```
-简单介绍一下程序的需求：
-1. add_minus.c 要求被编译成静态链接库 libadd_minus.a。
-2. multi_div.c 要求被编译成动态链接库 libmulti_div.so。
-3. main.c 是主要的源文件，会调用上述两个代码文件中的 API，main.c 要求被编译为 main.o 。
-4. 将main.o libadd_minus.a libmulti_div.so 链接成可执行文件 main。
-5. 每次编译前要清除上次编译时产生的文件。
-
-打上补丁 v3.0 并增加库文件路径，export 环境变量 LD_LIBRARY_PATH 为当前路径：
-```
-patch -p2 < v3.0.patch
-export LD_LIBRARY_PATH=$PWD
-```
-#### 5.6.2 makefile 文件示例
-请参照 5.6.1 的要求完成 makefile 文件，完成后可参考文件 makefile_for_chapter0 的内容：
-```
-# this is a chapter0 makefile
-.PHONY:all clean depen
-
-depen=clean main.o add_minus.o libadd_minus.a libmulti_div.so
-
-all:$(depen)
-    gcc -o main main.o -L./ -ladd_minus -lmulti_div
-
-main.o:main.c
-    gcc -c main.c
-
-add_minus.o:
-    gcc -c add_minus.c
-
-libadd_minus.a:add_minus.o
-    ar rc libadd_minus.a add_minus.o
-
-libmulti_div.so:
-    gcc multi_div.c -fPIC -shared -o libmulti_div.so
-
+        @echo $(vari_a)
+        @echo $(MAKEFILE_LIST)
 clean:
-    -rm $(depen)
+
 ```
+执行 make：
+```
+make
+```
+终端打印：
+```
+now we exe aim_b
+ 2nd vari...
+./aim_b_file makefile makefile_dir/inc_a makefile_dir/inc_b
+```
+第二行打印内容说明 MAKEFILE_LIST 已经包含了./aim_b_file makefile makefile_dir/inc_a makefile_dir/inc_b。
 
 实验过程如下图所示：
-![5.6](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498375678408.png/wm)
+![5.3A](https://dn-anything-about-doc.qbox.me/document-uid66754labid3113timestamp1498954417212.png/wm)
+![5.3B](https://dn-anything-about-doc.qbox.me/document-uid66754labid3113timestamp1498954466628.png/wm)
+![5.3C](https://dn-anything-about-doc.qbox.me/document-uid66754labid3113timestamp1498954479052.png/wm)
+![5.3D](https://dn-anything-about-doc.qbox.me/document-uid66754labid3113timestamp1498954491773.png/wm)
+
+### 5.4 重载另一个 makefile
+#### 5.4.1 使用 make -f 重载另一个 makefile
+现在拷贝 makefile 文件为 inc_test：
+```
+cp makefile inc_test
+```
+再使用 make -f 命令指定需要读取的 makefile 文件为 inc_test：
+```
+make -f inc_test
+```
+终端打印：
+```
+now we exe aim_b
+ 2nd vari...
+./aim_b_file inc_test makefile_dir/inc_a makefile_dir/inc_b
+```
+可见原来默认执行的 makefile 文件被替换成了 inc_test 文件，且被 MAKEFILE_LIST 正确记录。
+
+#### 5.4.2 测试重载 makefile 的限制条件
+makefile 重载另一个 makefile 的时，不允许有规则名重名。
+若是有规则发生重名会发生什么状况呢？
+修改 aim_b_file 增加 all 规则：
+```
+all:
+        @echo "all in aim_b"
+```
+执行：
+```
+make
+```
+终端打印：
+```
+makefile:10: warning: overriding commands for target `all'
+./aim_b_file:9: warning: ignoring old commands for target `all'
+now we exe aim_b
+ 2nd vari...
+./aim_b_file makefile makefile_dir/inc_a makefile_dir/inc_b
+```
+从打印日志中可以看出 makefile 重写了 aim_b_file 文件中的 all 规则。
+
+#### 5.4.3 用“所有匹配模式”重载另一个 makefile
+从上面的实验中可以看出，对于两个文件中同名的规则，make 后读入的规则会重写先读入的规则。
+现在假如有两个 makefile 文件，AMake 和 BMake，它们都定义了一条 intro 规则，但行为不同。
+用户希望执行在生成目标 AAim 和 BAim 的时候分别调用 AMake 和 BMake 的 intro 规则，要怎样来做呢？
+
+我们无法用 include 指示符来包含这两个 makefile，否则会产生重写规则的行为。
+此时需要用到重载另一个 makefile 的技巧。
+具体方法就是在对应的规则中重新调用 make 并传入需要重载的 makefile 文件名及目标名。
+
+chapter2/makefile_dir/ 目录底下的 makefile_c AMake BMake 这三个文件可以演示我们所需的功能。
+先拷贝三个文件到当前目录下：
+```
+cp makefile_dir/makefile_c makefile
+cp makefile_dir/AMake ./
+cp makefile_dir/BMake ./
+```
+查看 makefile 文件，内容如下：
+```
+#this is a makefile reload example main part
+
+.PHONY:AAim BAim
+
+AAim:
+        make -f AMake intro
+
+BAim:
+        make -f BMake intro
+```
+当目标为 AAim 时，会执行“make -f AMake intro”。
+也就是会重载 AMake 作为 makefile 文件并执行 intro 规则。
+BAim 的处理方式也类似。
+现在测试一下执行效果，执行：
+```
+make AAim
+```
+终端打印：
+```
+make -f AMake intro
+make[1]: Entering directory '/root/study/make_example/chapter2'
+Hello, this is AMake
+make[1]: Leaving directory '/root/study/make_example/chapter2'
+```
+可见 AMake 下的 intro 规则的确被执行到了。
+再执行 BAim 规则：
+```
+make BAim
+```
+终端打印：
+```
+make -f BMake intro
+make[1]: Entering directory '/root/study/make_example/chapter2'
+Hello, this is BMake
+make[1]: Leaving directory '/root/study/make_example/chapter2'
+```
+BMake 的规则也被顺利执行。
+上述部分是基本的重载方式。
+
+现在我们在多一条需求，希望其它未定义规则都要执行另一条 intro 规则，此规则定义在 CMake 文件中。
+为了匹配其它所有的未定义规则，我们需要用到通配符“%”。
+
+修改 makefile 在文件最后加入“所有匹配模式”规则：
+```
+%:
+        make -f CMake intro
+```
+并将 makefile_dir/CMake 文件拷贝到当前目录下：
+```
+cp makefile_dir/CMake ./
+```
+随便执行一条规则 AAA：
+```
+make AAA
+```
+终端打印：
+```
+make -f CMake intro
+make[1]: Entering directory '/root/study/make_example/chapter2'
+Hello, this is CMake
+make[1]: Leaving directory '/root/study/make_example/chapter2'
+```
+说明这条未定义的规则最后会重载 CMake 并执行其 intro 规则。
+
+实验效果如图所示：
+![5.4A](https://dn-anything-about-doc.qbox.me/document-uid66754labid3113timestamp1498954887794.png/wm)
+![5.4B](https://dn-anything-about-doc.qbox.me/document-uid66754labid3113timestamp1498954961382.png/wm)
+![5.4C](https://dn-anything-about-doc.qbox.me/document-uid66754labid3113timestamp1498954974201.png/wm)
 
 ## 六、实验总结
-本实验测试了 makefile 的基础规则和一些简单的特性。
+本实验验证了 makefile 的自动推导规则，一些环境变量的使用，include 指示符的使用和限制，以及 makefile 重载的技巧。
 
 ## 七、课后习题
-请自行设计一段包含多个源文件的小型工程，并使用 makefile 进行管理。
+无
 
 ## 八、参考链接
 无

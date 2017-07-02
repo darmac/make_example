@@ -6,7 +6,7 @@
 2. makefile 时间戳检验测试。
 3. 验证 makefile 依赖文件的执行顺序。
 4. 变量，PHONY和“-”功能测试。
-5. makefile 文件命名及隐式规则。
+5. makefile 文件命名规则。
 6. 编写一段程序的 makefile 文件。
 
 ### 1.2 实验知识点 
@@ -17,7 +17,6 @@
 5. .PHONY的作用：声明伪目标。
 6. “-”的作用：让make忽略该命令的错误。
 7. make搜寻makefile的命名规则："GNUmakefile" > "makefile" > "Makefile"。
-8. makefile不存在的情况下也可以利用make的隐式规则实现代码编译。
 
 ### 1.3 实验环境
 Ubuntu系统, GNU gcc工具，GNU make工具
@@ -29,7 +28,7 @@ Ubuntu系统, GNU gcc工具，GNU make工具
 git clone https://github.com/darmac/make_example.git
 
 ## 二、实验原理
-测试 makefile 的基础规则和一些简单的特性。
+依据 makefile 的基本规则设计相应的正反示例，验证规则。
 
 ## 三、开发准备
 进入实验楼课程即可。
@@ -113,13 +112,13 @@ gcc -o main main.o
 hello world!
 ```
 说明程序正常执行。
-#### 5.1.6 自动化编译终极目标
+#### 5.1.6 自动化编译目标
 清除掉 main.o 和 main 文件：
 ```
 rm main.o main
 ```
-由于我们的“终极”目标是 main 文件，实际上我们并不关心中间目标“main.o”。
-现在尝试只运行一次 make 编译出我们需要的终极目标。
+由于我们的最终的目标是 main 文件，实际上我们并不关心中间目标“main.o”。
+现在尝试只运行一次 make 编译出我们需要的最终目标。
 ```
 make main
 ```
@@ -368,7 +367,7 @@ touch testa
 touch testb
 gcc -o main main.o
 ```
-看起来效果不错，虽然 rm 指令报出错误，make 却依然可以生成我们的终极目标：main 文件。
+看起来效果不错，虽然 rm 指令报出错误，make 却依然可以生成我们的最终目标：main 文件。
 
 #### 5.4.6 使用伪目标
 前面提到 makefile 依赖文件的时间戳若比目标文件旧，则对应规则的命令不会执行。
@@ -433,7 +432,7 @@ gcc -o main main.o
 ![5.4E](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498374986872.png/wm)
 ![5.4F](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498374992596.png/wm)
 ![5.4G](https://dn-anything-about-doc.qbox.me/document-uid66754labid3112timestamp1498374998100.png/wm)
-### 5.5 makefile 文件命名及隐式规则。
+### 5.5 makefile 文件命名规则。
 #### 5.5.1 make 默认调用的文件名
 迄今为止，我们写的自动编译规则都放在 makefile 中，通过实验也可以明确了解到 make 工具会自动调用 makefile 文件。
 是否文件名必须命名为“makefile”呢？
