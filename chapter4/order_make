@@ -1,0 +1,9 @@
+# this is a makefile to verify the order-only rule
+
+.PHONY:clean
+
+aim_1:test_1 |test_2 test_3
+	touch aim_1
+
+clean:
+	rm -f test_1 test_2 test_3 aim_1

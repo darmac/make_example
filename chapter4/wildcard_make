@@ -1,0 +1,22 @@
+#this is a makefile test for wildcard
+
+.PHONY:all clean prepare test_1
+
+all:aim_1
+
+aim_%:test_*
+	@echo "aim : " $@ "depen : " $^
+	@cd ~ ; echo "print user home path:";pwd
+	@ls *
+
+test_%:
+	touch $@
+
+test_1:test_4
+	@echo "exe " $@
+
+clean:
+	rm -f test_*
+
+prepare:
+	touch test_1 test_2 test_3

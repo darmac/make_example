@@ -1,0 +1,4 @@
+# this is a makefile to verify the default aim
+
+envir_1:
+	@echo "this is " $@
