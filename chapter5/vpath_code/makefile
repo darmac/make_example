@@ -1,0 +1,14 @@
+#this is a makefile for VPATH test
+
+.PHONY:all clean
+
+depen=main.o foo1.o foo2.o
+aim=main
+
+all:$(depen)
+	@echo "objs inlude : " $(depen)
+	$(CC) -o $(aim) $(depen)
+
+clean:
+	$(RM) $(depen)
+	$(RM) $(aim)
