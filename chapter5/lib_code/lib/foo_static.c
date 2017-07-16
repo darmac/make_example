@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-void foo(void)
+int foo(void)
 {
-	printf("this is a static lib!\n");
+	return 2;
 }

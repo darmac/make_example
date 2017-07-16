@@ -1,9 +1,11 @@
 #include <stdio.h>
 
-extern void foo(void);
+extern int foo(void);
 
 int main(void)
 {
-	foo();
+	int i = foo();
+	printf("get i=%d\n",i);
+
 	return 0;
 }
