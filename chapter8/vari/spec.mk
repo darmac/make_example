@@ -8,5 +8,5 @@ all:$(subdir)
 	@echo "finished!"
 
 $(subdir):
-	cd $@;make
+	cd $@;$(MAKE)
 
