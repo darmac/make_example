@@ -4,7 +4,7 @@
 
 PRE:=pre_a pre_b pre_a pre_c
 
-all:$(PRE) lib -lfake
+all:$(PRE) lib -ladd
 	@echo "$$""@:"$@
 	@echo "$$""^:"$^
 	@echo "$$""+:"$+
@@ -23,11 +23,10 @@ depen_%:
 	@echo "use depen rule to build:"$@
 	touch $@
 
-lib:libfake.a(fake.o)
-	touch $@
-
-libfake.a(fake.o):fake.o
+lib:libadd.a(add.o)
+	
+libadd.a(add.o):add.o
 	$(AR) r $@ $%
 
 clean:
-	$(RM) pre_* depen_* *.a lib all
+	$(RM) pre_* depen_* *.a *.o lib all

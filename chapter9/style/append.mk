@@ -16,9 +16,12 @@ b1 += _b2
 b1 += $(b3)
 b3 += $(b1)
 
-c1 ?= cc1
-c2 = cc2
-c2 ?= cc3
+c1 += $(c2)
+c2 += $(c1)
+
+d1 ?= dd1
+d2 = dd2
+d2 ?= dd3
 
 dir:
 	@echo "a1:"$(a1)
@@ -26,6 +29,9 @@ dir:
 recur:
 	@echo "b1:"$(b1)
 
-cond:
+def:
 	@echo "c1:"$(c1)
-	@echo "c2:"$(c2)
+
+cond:
+	@echo "d1:"$(d1)
+	@echo "d2:"$(d2)
