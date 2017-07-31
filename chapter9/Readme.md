@@ -1,39 +1,65 @@
-é€’å½’å±•å¼€å˜é‡
-å±•å¼€æ—¶æœºæµ‹è¯•
-é€’å½’æ­»é”
-ç›´æŽ¥å±•å¼€å˜é‡
-(subï¼Œè·³è¿‡)å¦‚ä½•å®šä¹‰ç©ºæ ¼
-+=
-ä¸ŽåŽŸå®šä¹‰å±•å¼€é£Žæ ¼ä¸€è‡´
-è¿½åŠ çš„å•è¯ä¼šæœ‰ç©ºæ ¼éš”å¼€
-?=     
-å˜é‡çš„æ›¿æ¢å¼•ç”¨ï¼šåŽç¼€æ›¿æ¢å¼•ç”¨ï¼Œæ¨¡å¼æ›¿æ¢å¼•ç”¨
+## Ò»¡¢ÊµÑé½éÉÜ
+±¾´ÎÊµÑé½«½éÉÜ make µÄ±äÁ¿¶¨Òå·ç¸ñ£¬±äÁ¿µÄÌæ»»ÒýÓÃ£¬»·¾³±äÁ¿¡¢ÃüÁîÐÐ±äÁ¿¡¢Ä¿±êÖ¸¶¨±äÁ¿µÄÊ¹ÓÃ¼°×Ô¶¯»¯±äÁ¿µÄÊ¹ÓÃ¡£
 
-verrideæŒ‡ç¤ºç¬¦
-overrideæ™®é€šç”¨æ³•
-åŽç»­æ”¹å˜ä¹Ÿè¦overrideæŒ‡ç¤ºç¬¦ï¼Œå¦åˆ™æ— æ•ˆ
-ç³»ç»ŸçŽ¯å¢ƒå˜é‡ä¸Ž-eé€‰é¡¹
-ç³»ç»ŸçŽ¯å¢ƒå˜é‡å¯¹makeå¯è§
-ä½¿ç”¨-eé€‰é¡¹
-export CC=xyz;echo ${CC};make -f envi.mk;make -f envi.mk
-ç›®æ ‡æŒ‡å®šå˜é‡ä¸Žæ¨¡å¼æŒ‡å®šå˜é‡
-ç›®æ ‡æŒ‡å®šå˜é‡ä¸Žå…¨å±€å˜é‡çš„å†²çªï¼šå±€éƒ¨ä½¿ç”¨ç›®æ ‡ï¼Œä¸å½±å“å…¨å±€å˜é‡çš„å€¼
-ä½¿ç”¨-eé€‰é¡¹ä¼šè¦†ç›–ç›®æ ‡æŒ‡å®šå˜é‡ï¼Œå› æ­¤æŽ¨èä½¿ç”¨override
-ä¸Žå…¨å±€å˜é‡é£Žæ ¼å¯ä»¥ä¸ä¸€è‡´
-ç›®æ ‡æŒ‡å®šå˜é‡åœ¨ç›®æ ‡çš„ä¾èµ–é¡¹ä¸­ä¹Ÿæœ‰æ•ˆ
-æ¨¡å¼æŒ‡å®šå˜é‡ä¸Žç›®æ ‡æŒ‡å®šå˜é‡ç”¨æ³•ç›¸ä¼¼
-make;make pre_d;make file_d
-è‡ªåŠ¨åŒ–å˜é‡
-ä¸ƒç§åŸºæœ¬å˜é‡
-å˜é‡æ‰©å±•
+### 1.1 ÊµÑéÄÚÈÝ
+1. ²»Í¬µÄ±äÁ¿·ç¸ñºÍ¸³Öµ·ç¸ñ
+2. ±äÁ¿µÄÌæ»»ÒýÓÃ£¬»·¾³±äÁ¿¡¢ÃüÁîÐÐ±äÁ¿µÄÊ¹ÓÃ
+3. Ä¿±êÖ¸¶¨±äÁ¿µÄÊ¹ÓÃ
+4. ×Ô¶¯»¯±äÁ¿µÄÊ¹ÓÃ
 
+### 1.2 ÊµÑéÖªÊ¶µã 
+1. ±äÁ¿µÄ¶¨Òå¼°Õ¹¿ªÊ±»ú¡£
+2. µÝ¹éÕ¹¿ª±äÁ¿Ê¹ÓÃ¡°=¡±»ò define ¶¨Òå£¬ÔÚÊ¹ÓÃÊ±Õ¹¿ª¡£
+3. µÝ¹éÕ¹¿ª±äÁ¿µÄ¶¨ÒåÓëÊéÐ´Ë³ÐòÎÞ¹Ø£¬µ«Ò²»á²úÉúÄÑÓÚµ÷ÊÔºÍº¯ÊýÖØ¸´µ÷ÓÃµÄÎÊÌâ¡£
+4. Ö±½ÓÕ¹¿ª±äÁ¿Ê¹ÓÃ¡°:=¡±¶¨Òå£¬ÔÚ make ¶ÁÈëµ±Ç°ÐÐÊ±Á¢¼´Õ¹¿ª¡£
+5. += ²Ù×÷·û¿ÉÒÔ¶Ô±äÁ¿½øÐÐ×·¼Ó£¬Õ¹¿ª·½Ê½Óë±äÁ¿Ô­Ê¼µÄ¸³Öµ·½Ê½Ò»ÖÂ¡£
+6. ?= ²Ù×÷·û¿ÉÒÔÔÚ±äÁ¿Î´¶¨ÒåÊ±½øÐÐ¸³Öµ¡£
+7. ±äÁ¿µÄÌæ»»ÒýÓÃ¿ÉÒÔ½«±äÁ¿Õ¹¿ªµÄÄÚÈÝ½øÐÐ×Ö·û´®Ìæ»»¡£
+8. ÏµÍ³»·¾³±äÁ¿¶Ô makefile À´ËµÊÇ¿É¼ûµÄ£¬µ«ÎÄ¼þÖÐµÄÍ¬Ãû±äÁ¿»á¸²¸Ç»·¾³±äÁ¿£¬¿ÉÒÔÊ¹ÓÃ -e Ñ¡Ïî±ÜÃâ¸²¸Ç¡£
+9. ÃüÁîÐÐ±äÁ¿±È makefile ÖÐµÄÆÕÍ¨±äÁ¿¾ßÓÐ¸ü¸ßµÄÓÅÏÈ¼¶£¬¿ÉÒÔÊ¹ÓÃ override ¹Ø¼ü×Ö·ÀÖ¹ makefile ÖÐµÄÍ¬Ãû±äÁ¿±»ÃüÁîÐÐÖ¸¶¨±äÁ¿¸²¸Ç¡£
+10. Ä¿±êÖ¸¶¨±äÁ¿½öÔÚ°üÀ¨ÒÀÀµÏîÔÚÄÚµÄÉÏÏÂÎÄ¿É¼û£¬ÀàËÆÓÚ¾Ö²¿±äÁ¿£¬ÓÅÏÈ¼¶¸ßÓÚÆÕÍ¨±äÁ¿¡£
+11. ×Ô¶¯»¯±äÁ¿¿ÉÒÔ¸ù¾Ý¾ßÌåÄ¿±êºÍÒÀÀµÏî×Ô¶¯Éú³ÉÏàÓ¦µÄÎÄ¼þÁÐ±í¡£
 
-makefile å˜é‡å°±æ˜¯ä¸€ä¸ªåå­—ï¼Œä»£è¡¨ä¸€ä¸ªæ–‡æœ¬å­—ç¬¦ä¸²ã€‚å˜é‡æœ‰ä¸¤ç§å®šä¹‰æ–¹å¼ï¼šé€’å½’å±•å¼€å¼å˜é‡å’Œç›´æŽ¥å±•å¼€å¼å˜é‡ã€‚
-å˜é‡åœ¨ makefile çš„è¯»å…¥é˜¶æ®µè¢«å±•å¼€æˆå­—ç¬¦ä¸²ã€‚
-####5.1.2 é€’å½’å±•å¼€å¼å˜é‡
-é€’å½’å±•å¼€å¼å˜é‡å¯ä»¥é€šè¿‡â€œ=â€å’Œâ€œdefineâ€è¿›è¡Œå®šä¹‰ï¼Œåœ¨å˜é‡å®šä¹‰è¿‡ç¨‹ä¸­ï¼Œå¯¹å…¶å®ƒå˜é‡çš„å®šä¹‰ä¸ä¼šç«‹å³å±•å¼€ï¼Œè€Œæ˜¯åœ¨å˜é‡è¢«è§„åˆ™ä½¿ç”¨åˆ°æ—¶æ‰è¿›è¡Œå±•å¼€ã€‚
-chapter9/style/ ç›®å½•ä¸‹çš„ makefile æ–‡ä»¶æ¼”ç¤ºäº†é€’å½’å±•å¼€å¼å˜é‡çš„å®šä¹‰å’Œä½¿ç”¨æ–¹å¼ã€‚
-æ–‡ä»¶å†…å®¹å¦‚ä¸‹ï¼š
+### 1.3 ÊµÑé»·¾³
+UbuntuÏµÍ³, GNU gcc¹¤¾ß£¬GNU make¹¤¾ß
+
+### 1.4 ÊÊºÏÈËÈº
+±¾¿Î³ÌÄÑ¶ÈÎªÖÐµÈ£¬ÊÊºÏÒÑ¾­³õ²½ÁË½â makefile ¹æÔòµÄÑ§Ô±½øÐÐÑ§Ï°¡£
+
+### 1.5 ´úÂë»ñÈ¡
+¿ÉÒÔÍ¨¹ýÒÔÏÂÃüÁî»ñÈ¡´úÂë£º
+```bash
+$ git clone https://github.com/darmac/make_example.git
+```
+
+## ¶þ¡¢ÊµÑéÔ­Àí
+ÒÀ¾Ý makefile µÄ»ù±¾¹æÔò½øÐÐÕý·´ÏòÊµÑé£¬Ñ§Ï°ºÍÀí½â¹æÔòµÄÊ¹ÓÃ·½Ê½¡£
+
+## Èý¡¢¿ª·¢×¼±¸
+½øÈëÊµÑéÂ¥¿Î³Ì¼´¿É¡£
+
+## ËÄ¡¢ÏîÄ¿ÎÄ¼þ½á¹¹
+```bash
+.
+
+```
+
+## Îå¡¢ÊµÑé²½Öè
+
+### 5.1 make µÄµÝ¹éÖ´ÐÐÊ¾Àý
+#### 5.1.1 ×¥È¡Ô´´úÂë
+Ê¹ÓÃÈçÏÂ cmd »ñÈ¡ GitHub Ô´´úÂë²¢½øÈëÏàÓ¦ÕÂ½Ú£º
+```bash
+cd ~/Code/
+git clone https://github.com/darmac/make_example.git
+cd make_example/chapter9
+```
+
+#### 5.1.2 µÝ¹éÕ¹¿ªÊ½±äÁ¿
+makefile ±äÁ¿¾ÍÊÇÒ»¸öÃû×Ö£¬´ú±íÒ»¸öÎÄ±¾×Ö·û´®¡£±äÁ¿ÓÐÁ½ÖÖ¶¨Òå·½Ê½£ºµÝ¹éÕ¹¿ªÊ½±äÁ¿ºÍÖ±½ÓÕ¹¿ªÊ½±äÁ¿¡£±äÁ¿ÔÚ makefile µÄ¶ÁÈë½×¶Î±»Õ¹¿ª³É×Ö·û´®¡£
+µÝ¹éÕ¹¿ªÊ½±äÁ¿¿ÉÒÔÍ¨¹ý¡°=¡±ºÍ¡°define¡±½øÐÐ¶¨Òå£¬ÔÚ±äÁ¿¶¨Òå¹ý³ÌÖÐ£¬¶ÔÆäËü±äÁ¿µÄ¶¨Òå²»»áÁ¢¼´Õ¹¿ª£¬¶øÊÇÔÚ±äÁ¿±»¹æÔòÊ¹ÓÃµ½Ê±²Å½øÐÐÕ¹¿ª¡£
+chapter9/style/ Ä¿Â¼ÏÂµÄ makefile ÎÄ¼þÑÝÊ¾ÁËµÝ¹éÕ¹¿ªÊ½±äÁ¿µÄ¶¨ÒåºÍÊ¹ÓÃ·½Ê½¡£
+ÎÄ¼þÄÚÈÝÈçÏÂ£º
 ```
 #this makefile is for recursively vari test
 
@@ -55,38 +81,38 @@ loop:
 	@echo "b1:"$(b1)
 	@echo "b2:"$(b2)
 ```
-æ–‡ä»¶ä¸­ recur è§„åˆ™ç”¨åˆ°3ä¸ªå˜é‡ï¼Œa1 æ˜¯ç›´æŽ¥å®šä¹‰å­—ç¬¦ä¸²ï¼Œa2 å¼•ç”¨åŽé¢æ‰å®šä¹‰åˆ°çš„ a3ï¼Œa3 åˆ™å¼•ç”¨ a1ã€‚
-loop è§„åˆ™ç”¨åˆ° b1ï¼Œb2 2ä¸ªå˜é‡ï¼ŒäºŒè€…ç›¸äº’å¼•ç”¨ã€‚
-è¿›å…¥ style ç›®å½•ï¼Œæµ‹è¯• recur è§„åˆ™ï¼š
+ÎÄ¼þÖÐ recur ¹æÔòÓÃµ½3¸ö±äÁ¿£¬a1 ÊÇÖ±½Ó¶¨Òå×Ö·û´®£¬a2 ÒýÓÃºóÃæ²Å¶¨Òåµ½µÄ a3£¬a3 ÔòÒýÓÃ a1¡£
+loop ¹æÔòÓÃµ½ b1£¬b2 2¸ö±äÁ¿£¬¶þÕßÏà»¥ÒýÓÃ¡£
+½øÈë style Ä¿Â¼£¬²âÊÔ recur ¹æÔò£º
 ```bash
 cd style;make recur
 ```
-ç»ˆç«¯æ‰“å°ï¼š
+ÖÕ¶Ë´òÓ¡£º
 ```bash
 a1:abc
 a2:abc
 a3:abc
 ```
-å¯è§ a1 a2 a3 çš„å€¼æ˜¯ä¸€è‡´çš„ï¼Œå˜é‡çš„å±•å¼€ä¸Žå®šä¹‰é¡ºåºæ— å…³ã€‚
-å†æµ‹è¯• loop å‘½ä»¤ï¼š
+¿É¼û a1 a2 a3 µÄÖµÊÇÒ»ÖÂµÄ£¬±äÁ¿µÄÕ¹¿ªÓë¶¨ÒåË³ÐòÎÞ¹Ø¡£
+ÔÙ²âÊÔ loop ÃüÁî£º
 ```bash
 make loop
 ```
-ç»ˆç«¯æ‰“å°ï¼š
+ÖÕ¶Ë´òÓ¡£º
 ```bash
 makefile:9: *** Recursive variable 'b1' references itself (eventually).  Stop.
 ```
-make å› ä¸ºä¸¤ä¸ªå˜é‡çš„æ— é™é€’å½’è€ŒæŠ¥é”™é€€å‡ºã€‚
-ä»Žä¸Šé¢æµ‹è¯•å¯ä»¥çœ‹å‡ºé€’å½’å±•å¼€å¼çš„ä¼˜ç‚¹ï¼šæ­¤å˜é‡å¯¹å¼•ç”¨å˜é‡çš„å®šä¹‰é¡ºåºæ— å…³ã€‚ç¼ºç‚¹åˆ™æ˜¯ï¼šå¤šä¸ªå˜é‡åœ¨äº’ç›¸å¼•ç”¨æ—¶å¯èƒ½å¯¼è‡´æ— é™é€’å½’ã€‚
-é™¤æ­¤ä¹‹å¤–ï¼Œé€’å½’å±•å¼€å¼å˜é‡ä¸­è‹¥æœ‰å‡½æ•°å¼•ç”¨ï¼Œæ¯æ¬¡å¼•ç”¨è¯¥å˜é‡éƒ½ä¼šå¯¼è‡´å‡½æ•°é‡æ–°æ‰§è¡Œï¼Œæ•ˆçŽ‡è¾ƒä½Žã€‚
+make ÒòÎªÁ½¸ö±äÁ¿µÄÎÞÏÞµÝ¹é¶ø±¨´íÍË³ö¡£
+´ÓÉÏÃæ²âÊÔ¿ÉÒÔ¿´³öµÝ¹éÕ¹¿ªÊ½µÄÓÅµã£º´Ë±äÁ¿¶ÔÒýÓÃ±äÁ¿µÄ¶¨ÒåË³ÐòÎÞ¹Ø¡£È±µãÔòÊÇ£º¶à¸ö±äÁ¿ÔÚ»¥ÏàÒýÓÃÊ±¿ÉÄÜµ¼ÖÂÎÞÏÞµÝ¹é¡£
+³ý´ËÖ®Íâ£¬µÝ¹éÕ¹¿ªÊ½±äÁ¿ÖÐÈôÓÐº¯ÊýÒýÓÃ£¬Ã¿´ÎÒýÓÃ¸Ã±äÁ¿¶¼»áµ¼ÖÂº¯ÊýÖØÐÂÖ´ÐÐ£¬Ð§ÂÊ½ÏµÍ¡£
 
-#### 5.1.3 ç›´æŽ¥å±•å¼€å¼å˜é‡
-ç›´æŽ¥å±•å¼€å¼å˜é‡é€šè¿‡â€œ:=â€è¿›è¡Œå®šä¹‰ï¼Œå¯¹å…¶å®ƒå˜é‡çš„å¼•ç”¨å’Œå‡½æ•°çš„å¼•ç”¨éƒ½å°†åœ¨å®šä¹‰æ—¶è¢«å±•å¼€ã€‚
-æ–‡ä»¶ direct.mk å°† makefile ä¸­çš„â€œ=â€æ›¿æ¢ä¸ºâ€œ:=â€ï¼Œé‡æ–°æ‰§è¡Œ recur å’Œ loop è§„åˆ™ï¼š
+#### 5.1.3 Ö±½ÓÕ¹¿ªÊ½±äÁ¿
+Ö±½ÓÕ¹¿ªÊ½±äÁ¿Í¨¹ý¡°:=¡±½øÐÐ¶¨Òå£¬¶ÔÆäËü±äÁ¿µÄÒýÓÃºÍº¯ÊýµÄÒýÓÃ¶¼½«ÔÚ¶¨ÒåÊ±±»Õ¹¿ª¡£
+ÎÄ¼þ direct.mk ½« makefile ÖÐµÄ¡°=¡±Ìæ»»Îª¡°:=¡±£¬ÖØÐÂÖ´ÐÐ recur ºÍ loop ¹æÔò£º
 ```bash
 make -f direct.mk recur;make -f direct.mk loop
 ```
-ç»ˆç«¯æ‰“å°ï¼š
+ÖÕ¶Ë´òÓ¡£º
 ```bash
 a1:abc
 a2:
@@ -94,13 +120,13 @@ a3:abc
 b1:
 b2:
 ```
-ä»Žæµ‹è¯•ç»“æžœå¯ä»¥çœ‹å‡ºï¼Œç”±äºŽ a2ï¼Œb1 éƒ½å¼•ç”¨äº†å°šæœªå®šä¹‰çš„å˜é‡ï¼Œå› æ­¤è¢«å±•å¼€ä¸ºç©ºã€‚
-ä½¿ç”¨ç›´æŽ¥å±•å¼€å¼å˜é‡å¯ä»¥é¿å…æ— é™é€’å½’é—®é¢˜å’Œå‡½æ•°é‡å¤å±•å¼€å¼•å‘çš„æ•ˆçŽ‡é—®é¢˜ï¼Œå¹¶ä¸”æ›´ç¬¦åˆä¸€èˆ¬çš„ç¨‹åºè®¾è®¡é€»è¾‘ï¼Œä¾¿äºŽè°ƒè¯•é—®é¢˜ï¼Œå› æ­¤æŽ¨èç”¨æˆ·å°½é‡ä½¿ç”¨ç›´æŽ¥å±•å¼€å¼å˜é‡ã€‚
+´Ó²âÊÔ½á¹û¿ÉÒÔ¿´³ö£¬ÓÉÓÚ a2£¬b1 ¶¼ÒýÓÃÁËÉÐÎ´¶¨ÒåµÄ±äÁ¿£¬Òò´Ë±»Õ¹¿ªÎª¿Õ¡£
+Ê¹ÓÃÖ±½ÓÕ¹¿ªÊ½±äÁ¿¿ÉÒÔ±ÜÃâÎÞÏÞµÝ¹éÎÊÌâºÍº¯ÊýÖØ¸´Õ¹¿ªÒý·¢µÄÐ§ÂÊÎÊÌâ£¬²¢ÇÒ¸ü·ûºÏÒ»°ãµÄ³ÌÐòÉè¼ÆÂß¼­£¬±ãÓÚµ÷ÊÔÎÊÌâ£¬Òò´ËÍÆ¼öÓÃ»§¾¡Á¿Ê¹ÓÃÖ±½ÓÕ¹¿ªÊ½±äÁ¿¡£
 
-#### 5.1.4 å˜é‡è¿½åŠ å’Œæ¡ä»¶èµ‹å€¼
-ä½¿ç”¨ += èµ‹å€¼ç¬¦å·å¯ä»¥å¯¹å˜é‡è¿›è¡Œè¿½åŠ ï¼Œå˜é‡è¿½åŠ æ—¶çš„èµ‹å€¼é£Žæ ¼ä¸Žå˜é‡å®šä¹‰æ—¶ä¸€è‡´ï¼Œè‹¥è¿½åŠ çš„æ˜¯æœªå®šä¹‰å˜é‡ï¼Œåˆ™é»˜è®¤ä»¥é€’å½’å±•å¼€å¼é£Žæ ¼è¿›è¡Œèµ‹å€¼ã€‚
-ä½¿ç”¨ ?= èµ‹å€¼ç¬¦å·å¯ä»¥å¯¹å˜é‡è¿›è¡Œæ¡ä»¶èµ‹å€¼ï¼Œè‹¥å˜é‡æœªè¢«å®šä¹‰åˆ™ä¼šå¯¹å˜é‡è¿›è¡Œèµ‹å€¼ï¼Œå¦åˆ™ä¸æ”¹å˜å˜é‡çš„å½“å‰å®šä¹‰ã€‚
-append.mk æ–‡ä»¶æ¼”ç¤ºäº†è¿½åŠ èµ‹å€¼å’Œæ¡ä»¶èµ‹å€¼çš„ä½¿ç”¨æ–¹å¼ï¼Œå†…å®¹å¦‚ä¸‹ï¼š
+#### 5.1.4 ±äÁ¿×·¼ÓºÍÌõ¼þ¸³Öµ
+Ê¹ÓÃ += ¸³Öµ·ûºÅ¿ÉÒÔ¶Ô±äÁ¿½øÐÐ×·¼Ó£¬±äÁ¿×·¼ÓÊ±µÄ¸³Öµ·ç¸ñÓë±äÁ¿¶¨ÒåÊ±Ò»ÖÂ£¬Èô×·¼ÓµÄÊÇÎ´¶¨Òå±äÁ¿£¬ÔòÄ¬ÈÏÒÔµÝ¹éÕ¹¿ªÊ½·ç¸ñ½øÐÐ¸³Öµ¡£
+Ê¹ÓÃ ?= ¸³Öµ·ûºÅ¿ÉÒÔ¶Ô±äÁ¿½øÐÐÌõ¼þ¸³Öµ£¬Èô±äÁ¿Î´±»¶¨ÒåÔò»á¶Ô±äÁ¿½øÐÐ¸³Öµ£¬·ñÔò²»¸Ä±ä±äÁ¿µÄµ±Ç°¶¨Òå¡£
+append.mk ÎÄ¼þÑÝÊ¾ÁË×·¼Ó¸³ÖµºÍÌõ¼þ¸³ÖµµÄÊ¹ÓÃ·½Ê½£¬ÄÚÈÝÈçÏÂ£º
 ```
 #this makefile is for += test
 
@@ -141,14 +167,14 @@ cond:
 	@echo "d1:"$(d1)
 	@echo "d2:"$(d2)
 ```
-dir å’Œ recur è§„åˆ™æ¼”ç¤ºäº†é€’å½’å±•å¼€å¼å˜é‡å’Œç›´æŽ¥å±•å¼€å¼å˜é‡ä½¿ç”¨è¿½åŠ èµ‹å€¼çš„åŒºåˆ«ã€‚
-def è§„åˆ™æ¼”ç¤ºäº†æœªå®šä¹‰å˜é‡è¿½åŠ èµ‹å€¼çš„é»˜è®¤é£Žæ ¼ã€‚
-cond æ¼”ç¤ºäº†æ¡ä»¶èµ‹å€¼çš„ä½¿ç”¨ã€‚
-åˆ†åˆ«æ‰§è¡Œå››æ¡è§„åˆ™ï¼š
+dir ºÍ recur ¹æÔòÑÝÊ¾ÁËµÝ¹éÕ¹¿ªÊ½±äÁ¿ºÍÖ±½ÓÕ¹¿ªÊ½±äÁ¿Ê¹ÓÃ×·¼Ó¸³ÖµµÄÇø±ð¡£
+def ¹æÔòÑÝÊ¾ÁËÎ´¶¨Òå±äÁ¿×·¼Ó¸³ÖµµÄÄ¬ÈÏ·ç¸ñ¡£
+cond ÑÝÊ¾ÁËÌõ¼þ¸³ÖµµÄÊ¹ÓÃ¡£
+·Ö±ðÖ´ÐÐËÄÌõ¹æÔò£º
 ```bash
 make -f append.mk dir;make -f append.mk recur;make -f append.mk def;make -f append.mk cond
 ```
-ç»ˆç«¯æ‰“å°ï¼š
+ÖÕ¶Ë´òÓ¡£º
 ```bash
 a1:aa1 _a1st _a2
 append.mk:16: *** Recursive variable 'b1' references itself (eventually).  Stop.
@@ -156,14 +182,14 @@ append.mk:19: *** Recursive variable 'c1' references itself (eventually).  Stop.
 d1:dd1
 d2:dd2
 ```
-è¯·è‡ªè¡Œåˆ†æžæ¯ä¸€è¡Œæ‰“å°ä¸Žå…¶åŽŸå› ã€‚
+Çë×ÔÐÐ·ÖÎöÃ¿Ò»ÐÐ´òÓ¡ÓëÆäÔ­Òò¡£
 
-### 5.2 å˜é‡çš„æ›¿æ¢
-#### 5.2.1 æ›¿æ¢å¼•ç”¨
-å¯¹äºŽå·²ç»å®šä¹‰çš„å˜é‡ï¼Œå¯ä»¥ä½¿ç”¨â€œæ›¿æ¢å¼•ç”¨â€å¯¹å…¶æŒ‡å®šçš„å­—ç¬¦ä¸²è¿›è¡Œæ›¿æ¢ã€‚
-æ›¿æ¢å¼•ç”¨çš„æ ¼å¼ä¸º $(VAR:A=B)ï¼Œå®ƒå¯ä»¥å°†å˜é‡ VAR ä¸­æ‰€æœ‰ A ç»“å°¾çš„å­—ç¬¦æ›¿æ¢ä¸º B ç»“å°¾çš„å­—ç¬¦ã€‚
-ä¹Ÿå¯ä»¥ä½¿ç”¨æ¨¡å¼ç¬¦å·å°†ç¬¦åˆ A æ¨¡å¼çš„å­—ç¬¦æ›¿æ¢ä¸º B æ¨¡å¼ã€‚
-chapter9/rep/makefile æ¼”ç¤ºäº†å˜é‡çš„æ›¿æ¢å¼•ç”¨ï¼Œå†…å®¹å¦‚ä¸‹ï¼š
+### 5.2 ±äÁ¿µÄÌæ»»
+#### 5.2.1 Ìæ»»ÒýÓÃ
+¶ÔÓÚÒÑ¾­¶¨ÒåµÄ±äÁ¿£¬¿ÉÒÔÊ¹ÓÃ¡°Ìæ»»ÒýÓÃ¡±¶ÔÆäÖ¸¶¨µÄ×Ö·û´®½øÐÐÌæ»»¡£
+Ìæ»»ÒýÓÃµÄ¸ñÊ½Îª $(VAR:A=B)£¬Ëü¿ÉÒÔ½«±äÁ¿ VAR ÖÐËùÓÐ A ½áÎ²µÄ×Ö·ûÌæ»»Îª B ½áÎ²µÄ×Ö·û¡£
+Ò²¿ÉÒÔÊ¹ÓÃÄ£Ê½·ûºÅ½«·ûºÏ A Ä£Ê½µÄ×Ö·ûÌæ»»Îª B Ä£Ê½¡£
+chapter9/rep/makefile ÑÝÊ¾ÁË±äÁ¿µÄÌæ»»ÒýÓÃ£¬ÄÚÈÝÈçÏÂ£º
 ```
 .PHONY:all
 
@@ -179,24 +205,24 @@ all:
 	@echo "vari_d:" $(vari_d)
 
 ```
-æ–‡ä»¶ä¸­åˆ†åˆ«å¯¹ä¸åŒçš„å˜é‡è¿›è¡Œæ›¿æ¢å¼•ç”¨å’Œæ¨¡å¼æ›¿æ¢å¼•ç”¨ï¼Œè¿›å…¥ rep ç›®å½•å¹¶æµ‹è¯•ï¼š
+ÎÄ¼þÖÐ·Ö±ð¶Ô²»Í¬µÄ±äÁ¿½øÐÐÌæ»»ÒýÓÃºÍÄ£Ê½Ìæ»»ÒýÓÃ£¬½øÈë rep Ä¿Â¼²¢²âÊÔ£º
 ```bash
 cd ../rep;make
 ```
-ç»ˆç«¯æ‰“å°ï¼š
+ÖÕ¶Ë´òÓ¡£º
 ```bash
 vari_a: fa.o fb.o fc.o f.o.o
 vari_b: fa.c fb.c fc.c f.o.c
 vari_c: fa.c fb.c fc.c f.o.c
 vari_d: fa.o fb.o fc.o f.c.o
 ```
-vari_b ä¸­çš„ .o åŽç¼€è¢«æ›¿æ¢æˆäº† .c åŽç¼€ï¼Œf.o.o è¢«æ›¿æ¢æœª f.o.cï¼Œè¿™è¡¨æ˜Žåªæœ‰åŽç¼€ä¼šè¢«æ›¿æ¢ï¼Œå­—ç¬¦ä¸²çš„å…¶å®ƒéƒ¨åˆ†ä¿æŒä¸å˜ã€‚
-vari_c åˆ™æ˜¯ä½¿ç”¨æ¨¡å¼ç¬¦å·æ›¿æ¢åŽç¼€ï¼Œç»“æžœä¸Ž vari_b ä¸€è‡´ã€‚
-vari_d ä½¿ç”¨æ¨¡å¼ç¬¦å·å°†å‰ç¼€ f.o æ›¿æ¢ä¸º f.cã€‚
+vari_b ÖÐµÄ .o ºó×º±»Ìæ»»³ÉÁË .c ºó×º£¬f.o.o ±»Ìæ»»Î´ f.o.c£¬Õâ±íÃ÷Ö»ÓÐºó×º»á±»Ìæ»»£¬×Ö·û´®µÄÆäËü²¿·Ö±£³Ö²»±ä¡£
+vari_c ÔòÊÇÊ¹ÓÃÄ£Ê½·ûºÅÌæ»»ºó×º£¬½á¹ûÓë vari_b Ò»ÖÂ¡£
+vari_d Ê¹ÓÃÄ£Ê½·ûºÅ½«Ç°×º f.o Ìæ»»Îª f.c¡£
 
-#### 5.2.2 çŽ¯å¢ƒå˜é‡çš„ä½¿ç”¨
-å¯¹äºŽ makefile æ¥è¯´ï¼Œç³»ç»Ÿä¸‹çš„çŽ¯å¢ƒå˜é‡éƒ½æ˜¯å¯è§çš„ã€‚è‹¥æ–‡ä»¶ä¸­çš„å˜é‡åä¸ŽçŽ¯å¢ƒå˜é‡åä¸€è‡´ï¼Œé»˜è®¤å¼•ç”¨æ–‡ä»¶ä¸­çš„å˜é‡ã€‚
-æ–‡ä»¶ envi.mk æ¼”ç¤ºäº†å˜é‡ CC ä¸ŽçŽ¯å¢ƒå˜é‡ CC å‘ç”Ÿå†²çªæ—¶çš„æ‰§è¡Œæƒ…å†µï¼š
+#### 5.2.2 »·¾³±äÁ¿µÄÊ¹ÓÃ
+¶ÔÓÚ makefile À´Ëµ£¬ÏµÍ³ÏÂµÄ»·¾³±äÁ¿¶¼ÊÇ¿É¼ûµÄ¡£ÈôÎÄ¼þÖÐµÄ±äÁ¿ÃûÓë»·¾³±äÁ¿ÃûÒ»ÖÂ£¬Ä¬ÈÏÒýÓÃÎÄ¼þÖÐµÄ±äÁ¿¡£
+ÎÄ¼þ envi.mk ÑÝÊ¾ÁË±äÁ¿ CC Óë»·¾³±äÁ¿ CC ·¢Éú³åÍ»Ê±µÄÖ´ÐÐÇé¿ö£º
 ```
 
 .PHONY:all
@@ -207,32 +233,32 @@ all:
 	@echo $(CC)
 
 ```
-æ–‡ä»¶å®šä¹‰ä¸€ä¸ª CC å˜é‡å¹¶èµ‹å€¼ä¸º abcï¼Œæ‰§è¡Œç»ˆæžç›®æ ‡æ—¶æ‰“å° CC å˜é‡çš„å†…å®¹ã€‚
-æˆ‘ä»¬å…ˆ export ä¸€ä¸ªçŽ¯å¢ƒå˜é‡ CCï¼Œå†æ‰§è¡Œ envi.mk è§‚å¯Ÿä¸¤ä¸ªå˜é‡æ˜¯å¦æœ‰åŒºåˆ«ï¼š
+ÎÄ¼þ¶¨ÒåÒ»¸ö CC ±äÁ¿²¢¸³ÖµÎª abc£¬Ö´ÐÐÖÕ¼«Ä¿±êÊ±´òÓ¡ CC ±äÁ¿µÄÄÚÈÝ¡£
+ÎÒÃÇÏÈ export Ò»¸ö»·¾³±äÁ¿ CC£¬ÔÙÖ´ÐÐ envi.mk ¹Û²ìÁ½¸ö±äÁ¿ÊÇ·ñÓÐÇø±ð£º
 ```bash
 export CC=def;echo $CC;make -f envi.mk
 ```
-ç»ˆç«¯æ‰“å°ï¼š
+ÖÕ¶Ë´òÓ¡£º
 ```bash
 def
 abc
 ```
-è¯´æ˜Ž makefile è‡ªå®šä¹‰å˜é‡ä¼˜å…ˆçº§é«˜äºŽçŽ¯å¢ƒå˜é‡ã€‚æˆ‘ä»¬ä¹Ÿå¯ä»¥åœ¨ makefile ä¸­å–æ¶ˆ CC å˜é‡çš„å®šä¹‰æˆ–è€…ä¿®æ”¹ PATH å˜é‡å®šä¹‰çœ‹çœ‹ä¼šå‘ç”Ÿä»€ä¹ˆçŠ¶å†µã€‚
+ËµÃ÷ makefile ×Ô¶¨Òå±äÁ¿ÓÅÏÈ¼¶¸ßÓÚ»·¾³±äÁ¿¡£ÎÒÃÇÒ²¿ÉÒÔÔÚ makefile ÖÐÈ¡Ïû CC ±äÁ¿µÄ¶¨Òå»òÕßÐÞ¸Ä PATH ±äÁ¿¶¨Òå¿´¿´»á·¢ÉúÊ²Ã´×´¿ö¡£
 
-#### 5.2.3 é˜²æ­¢çŽ¯å¢ƒå˜é‡è¢«è¦†ç›–
-å¯ä»¥ä½¿ç”¨ -e é€‰é¡¹é˜²æ­¢çŽ¯å¢ƒå˜é‡è¢«åŒåå˜é‡è¦†ç›–ï¼Œå¦‚ä¸Šè¿°å®žéªŒåŠ å…¥ -e é€‰é¡¹ï¼š
+#### 5.2.3 ·ÀÖ¹»·¾³±äÁ¿±»¸²¸Ç
+¿ÉÒÔÊ¹ÓÃ -e Ñ¡Ïî·ÀÖ¹»·¾³±äÁ¿±»Í¬Ãû±äÁ¿¸²¸Ç£¬ÈçÉÏÊöÊµÑé¼ÓÈë -e Ñ¡Ïî£º
 ```bash
 make -f envi.mk -e
 ```
-ç»ˆç«¯æ‰“å°ï¼š
+ÖÕ¶Ë´òÓ¡£º
 ```bash
 def
 ```
 
-#### 5.2.4 å‘½ä»¤è¡Œå˜é‡
-ä¸ŽçŽ¯å¢ƒå˜é‡ä¸åŒï¼Œåœ¨æ‰§è¡Œ make æ—¶æŒ‡å®šçš„å‘½ä»¤è¡Œå˜é‡ä¼šè¦†ç›– makefile ä¸­åŒåçš„å˜é‡å®šä¹‰ï¼Œ
-å¦‚æžœå¸Œæœ›å˜é‡ä¸è¢«è¦†ç›–åˆ™éœ€è¦ä½¿ç”¨ override å…³é”®å­—ã€‚
-override.mk æ–‡ä»¶æ¼”ç¤ºäº†å‘½ä»¤è¡Œå‚æ•°çš„è¦†ç›–å’Œ override å…³é”®å­—çš„ä½¿ç”¨ï¼š
+#### 5.2.4 ÃüÁîÐÐ±äÁ¿
+Óë»·¾³±äÁ¿²»Í¬£¬ÔÚÖ´ÐÐ make Ê±Ö¸¶¨µÄÃüÁîÐÐ±äÁ¿»á¸²¸Ç makefile ÖÐÍ¬ÃûµÄ±äÁ¿¶¨Òå£¬
+Èç¹ûÏ£Íû±äÁ¿²»±»¸²¸ÇÔòÐèÒªÊ¹ÓÃ override ¹Ø¼ü×Ö¡£
+override.mk ÎÄ¼þÑÝÊ¾ÁËÃüÁîÐÐ²ÎÊýµÄ¸²¸ÇºÍ override ¹Ø¼ü×ÖµÄÊ¹ÓÃ£º
 ```
 .PHONY:all
 
@@ -255,4 +281,219 @@ all:
 	@echo "vari_d:" $(vari_d)
 	@echo "vari_e:" $(vari_e)
 ```
-çŽ°åœ¨ä¼ å…¥
+vari_a ºÍ¡¡vari_c ÊÇµÝ¹éÕ¹¿ªÊ½±äÁ¿£¬vari_b ºÍ¡¡vari_d ÊÇÖ±½ÓÕ¹¿ªÊ½±äÁ¿£¬vari_e ÊÇÎ´¶¨Òå±äÁ¿¡£
+ÏÖÔÚ´ÓÃüÁîÐÐ´«Èë vari_a µ½ vari_e ²¢²é¿´±äÁ¿×îÖÕµÄÕ¹¿ªÖµ£º
+```bash
+make -f override.mk vari_a=va vari_b=vb vari_c=vc vari_d=vd vari_e=ve
+```
+ÖÕ¶Ë´òÓ¡£º
+```bash
+vari_a: va
+vari_b: vb
+vari_c: hij zzz
+vari_d: lmn zzz
+vari_e: ve
+```
+´Ó´òÓ¡¿ÉÒÔ¿´³öÎÞÂÛÄÄÖÖ·ç¸ñµÄ±äÁ¿£¬¶¼ÐèÒªÊ¹ÓÃ override Ö¸Ê¾·û²ÅÄÜ·ÀÖ¹ÃüÁîÐÐ¶¨ÒåµÄÍ¬Ãû±äÁ¿¸²¸Ç¡£
+Í¬Ê±£¬ÓÃ override ¶¨ÒåµÄ±äÁ¿ÔÚ½øÐÐÐÞ¸ÄÊ±Ò²ÐèÑ½Ê¹ÓÃ override£¬·ñÔòÐÞ¸Ä²»»áÉúÐ§£¬ÑéÖ¤·½·¨ÈçÏÂ£º
+```bash
+make -f override.mk
+```
+ÖÕ¶Ë´òÓ¡£º
+```bash
+vari_a: abc
+vari_b: def
+vari_c: hij zzz
+vari_d: lmn zzz
+vari_e:
+```
+¿É¼ûÃüÁîÐÐÃ»ÓÐ´«Èë±äÁ¿£¬µ« vari_c ºÍ vari_d ÈÔÈ»ÎÞ·¨×·¼Ó²»ÓÃ override Ö¸Ê¾·ûÊ±µÄ ¡°+= zzz¡±¡£
+
+### 5.3 Ä¿±êÖ¸¶¨±äÁ¿ºÍÄ£Ê½Ö¸¶¨±äÁ¿
+makefile ÖÐ¶¨ÒåµÄ±äÁ¿Í¨³£Ê±¶ÔÕû¸öÎÄ¼þÓÐÐ§£¬ÀàËÆÓÚÈ«¾Ö±äÁ¿¡£³ýÁËÆÕÍ¨µÄ±äÁ¿¶¨ÒåÒÔÍâ£¬»¹ÓÐÒ»ÖÖÄ¿±êÖ¸¶¨±äÁ¿£¬¶¨ÒåÔÚÄ¿±êÒÀÀµÏî´¦£¬½ö¶ÔÄ¿±êÉÏÏÂÎÄ¿É¼û¡£ÕâÀïµÄÄ¿±êÉÏÏÂÎÄÒ²°üÀ¨ÁËÄ¿±êÒÀÀµÏîµÄ¹æÔò¡£
+Ä¿±êÖ¸¶¨±äÁ¿»¹¿ÉÒÔ¶¨ÒåÔÚÄ£Ê½Ä¿±êÖÐ£¬³ÆÎªÄ£Ê½Ö¸¶¨±äÁ¿¡£
+µ±Ä¿±êÖÐÊ¹ÓÃµÄ±äÁ¿¼ÈÔÚÈ«¾ÖÖÐ¶¨Òå£¬ÓÖÔÚÄ¿±êÖÐ¶¨ÒåÊ±£¬Ä¿±ê¶¨ÒåÓÅÏÈ¼¶¸ü¸ß£¬µ«Ðè×¢Òâ£ºÄ¿±êÖ¸¶¨±äÁ¿ÓëÈ«¾Ö±äÁ¿ÊÇÁ½¸ö±äÁ¿£¬ËüÃÇµÄÖµ»¥²»Ó°Ïì¡£
+chapter9/target/makefile ÑÝÊ¾ÁËÄ¿±êÖ¸¶¨±äÁ¿µÄÓÃ·¨£¬ÄÚÈÝÈçÏÂ£º
+```bash
+.PHONY:all
+
+vari_a=abc
+vari_b=def
+
+all:vari_a:=all_target
+
+all:pre_a pre_b file_c
+	@echo $@ ":" $(vari_a)
+	@echo $@ ":" $(vari_b)
+
+pre_%:vari_b:=pat
+	pre_%:
+	@echo $@ ":" $(vari_a)
+	@echo $@ ":" $(vari_b)
+
+file_%:
+	@echo $@ ":" $(vari_a)
+	@echo $@ ":" $(vari_b)
+```
+makefile ÖÐ¶¨ÒåÁË vari_a ºÍ vari_b Á½¸öÈ«¾Ö±äÁ¿£¬Ä¿±ê all Ö¸¶¨ÁËÒ»¸öÍ¬ÃûµÄ vari_a ±äÁ¿£¬Ä£Ê½Ä¿±ê pre_% Ö¸¶¨ÁËÒ»¸öÍ¬ÃûµÄ vari_b±äÁ¿¡£
+Ã¿¸öÄ¿±êµÄ¹æÔòÖÐ¶¼´òÓ¡ËüÃÇÄÜ¿´µ½µÄ vari_a ºÍ vari_b µÄÖµ£¬´ó¼Ò¿ÉÒÔ¸ù¾ÝÇ°ÃæËùÊöµÄ¹æÔòÍÆ²âÃ¿¸öÄ¿±ê·Ö±ð»á´òÓ¡Ê²Ã´ÐÅÏ¢¡£
+½øÈë target Ä¿Â¼£¬Ö´ÐÐ make£º
+```bash
+cd ../target;make
+```
+ÖÕ¶Ë´òÓ¡£º
+```bash
+pre_a : all_target
+pre_a : pat
+pre_b : all_target
+pre_b : pat
+file_c : all_target
+file_c : def
+all : all_target
+all : def
+```
+ÓÉÓÚÖÕ¼«Ä¿±ê all Ö¸¶¨ÁË vari_a Îª¡°all_target¡±£¬Òò´ËÔÚÕû¸öÄ¿±êÖØ½¨¹ý³ÌÖÐ vari_a ¶¼ÒÔÄ¿±êÖ¸¶¨±äÁ¿µÄÐÎÊ½³öÏÖ¡£vari_b ½öÔÚÄ£Ê½Ä¿±ê pre_% ÖÐ±»¶¨Òå£¬Òò´Ë¶Ô pre_a ºÍ pre_b À´Ëµ£¬vari_b Îª¡±pat¡°£¬µ«¶Ô file_% ºÍ all Ä¿±ê¶øÑÔ£¬vari_b ÊÇÈ«¾Ö±äÁ¿£¬Õ¹¿ªºóÎª¡±def¡°¡£
+
+ÎÒÃÇÒ²¿ÉÒÔµ¥¶ÀÒÔ pre_a ºÍ file_c ÎªÄ¿±ê£¬¿´¿´ÄÚÈÝÓÐÊ²Ã´Çø±ð£º
+```bash
+make pre_a
+```
+ÖÕ¶Ë´òÓ¡£º
+```bash
+pre_a : abc
+pre_a : pat
+```
+ÔÙÖ´ÐÐ£º
+```bash
+make file_c
+```
+ÖÕ¶Ë´òÓ¡£º
+```bash
+file_c : abc
+file_c : def
+```
+ÓÉÓÚ´ËÊ±²¢·Ç´¦ÓÚ all Ä¿±êµÄÉÏÏÂÎÄÖÐ£¬ËùÒÔ all Ö¸¶¨µÄ vari_a ±äÁ¿Ê§Ð§£¬È¡¶ø´úÖ®µÄÊÇÔ­ÓÐµÄÖµ "abc"£¬¶ø pre_% Ö¸¶¨ÁË vari_b ±äÁ¿£¬ËùÒÔ¶Ô pre_a À´Ëµ£¬vari_b ±äÁ¿ÒÀÈ»ÊÇ "pat"¡£
+#### 5.4 ×Ô¶¯»¯±äÁ¿
+ÔÚÄ£Ê½¹æÔòÖÐ£¬Ò»¸öÄ£Ê½Ä¿±ê¿ÉÒÔÆ¥Åä¶à¸ö²»Í¬µÄÄ¿±êÃû£¬µ«¹¤³ÌÖØ½¨¹ý³ÌÖÐ¾­³£ÐèÒªÖ¸¶¨Ò»¸öÈ·ÇÐµÄÄ¿±êÃû£¬ÎªÁË·½±ã»ñÈ¡¹æÔòÖÐµÄ¾ßÌåµÄÄ¿±êÃûºÍÒÀÀµÏî£¬makefile ÖÐÐèÒªÓÃµ½×Ô¶¯»¯±äÁ¿£¬×Ô¶¯»¯±äÁ¿µÄÈ¡ÖµÊÇ¸ù¾Ý¾ßÌåËùÖ´ÐÐµÄ¹æÔòÀ´¾ö¶¨µÄ£¬È¡¾öÓÚËùÖ´ÐÐ¹æÔòµÄÄ¿±êºÍÒÀÀµÎÄ¼þÃû¡£
+×Ü¹²ÓÐÆßÖÖ×Ô¶¯»¯±äÁ¿£º
+$@£ºÄ¿±êÃû³Æ
+$%£ºÈôÄ¿±êÃûÎª¾²Ì¬¿â£¬´ú±í¸Ã¾²Ì¬¿âµÄÒ»¸ö³ÉÔ±Ãû£¬·ñÔòÎª¿Õ
+$<£ºµÚÒ»¸öÒÀÀµÏîÃû³Æ
+$?£ºËùÓÐ±ÈÄ¿±êÎÄ¼þÐÂµÄÒÀÀµÏîÁÐ±í
+$^£ºËùÓÐÒÀÀµÏîÁÐ±í£¬ÖØÃûÒÀÀµÏî±»ºöÂÔ
+$+£º°üÀ¨ÖØÃûÒÀÀµÏîµÄËùÓÐÒÀÀµÏîÁÐ±í
+$*£ºÄ£Ê½¹æÔò»ò¾²Ì¬Ä£Ê½¹æÔòÖÐµÄ¾¥£¬Ò²¼´¡±%¡°Ëù´ú±íµÄ²¿·Ö
+
+chapter9/auto/makefile ÑÝÊ¾ÁËÆßÖÖ×Ô¶¯»¯±äÁ¿µÄÓÃ·¨£¬ÎÄ¼þÄÚÈÝÈçÏÂ£º
+```bash
+# $@ $^ $% $< $? $* $+
+
+.PHONY:clean
+
+PRE:=pre_a pre_b pre_a pre_c
+
+all:$(PRE) lib -ladd
+	@echo "$$""@:"$@
+	@echo "$$""^:"$^
+	@echo "$$""+:"$+
+	@echo "$$""<:"$<
+	@echo "$$""?:"$?
+	@echo "$$""*:"$*
+	@echo "$$""%:"$%
+	@touch $@
+
+$(PRE):pre_%:depen_%
+	@echo "$$""*(in $@):"$*
+	touch $@
+
+depen_%:
+	@echo "use depen rule to build:"$@
+	touch $@
+
+lib:libadd.a(add.o minus.o)
+
+libadd.a(add.o minus.o):add.o minus.o
+	@echo "$$""%(in $@):" $%
+	$(AR) r $@ $%
+	
+clean:
+	$(RM) pre_* depen_* *.a *.o lib all
+
+```
+ÖÕ¼«Ä¿±ê all µÄÒÀÀµÏî°üÀ¨ pre_a pre_b pre_c lib ºÍ¿âÎÄ¼þ libadd.a£¬ÆäÖÐÖØ¸´°üº¬ÁËÒ»´Î pre_a ÒÀÀµÏî¡£
+Ä£Ê½¹æÔò pre_% ÀûÓÃ¾²Ì¬Ä£Ê½ÒÀÀµÓÚ¶ÔÓ¦µÄ depen_% ¹æÔò£¬´òÓ¡Æ¥Åäµ½µÄ¾¥£¬²¢Éú³ÉÄ¿±êÎÄ¼þ£¬¿âÎÄ¼þ¹æÔò´òÓ¡ $% ²¢´ò°üÉú³É libadd.a¡£
+
+ÏÖÔÚ½øÈë auto Ä¿Â¼²¢Ö´ÐÐ make£º
+```bash
+cd ../auto;make
+```
+ÖÕ¶Ë´òÓ¡£º
+```bash
+makefile:17: target 'pre_a' given more than once in the same rule
+use depen rule to build:depen_a
+touch depen_a
+$*(in pre_a):a
+touch pre_a
+use depen rule to build:depen_b
+touch depen_b
+$*(in pre_b):b
+touch pre_b
+use depen rule to build:depen_c
+touch depen_c
+$*(in pre_c):c
+touch pre_c
+cc    -c -o add.o add.c
+cc    -c -o minus.o minus.c
+$%(in libadd.a): add.o
+ar r libadd.a add.o
+ar: creating libadd.a
+make: Warning: Archive 'libadd.a' seems to have been created in deterministic mode. 'add.o' will always be updated. Please consider passing the U flag to ar to avoid the problem.
+$%(in libadd.a): minus.o
+ar r libadd.a minus.o
+make: Warning: Archive 'libadd.a' seems to have been created in deterministic mode. 'minus.o' will always be updated. Please consider passing the U flag to ar to avoid the problem.
+$@:all
+$^:pre_a pre_b pre_c lib libadd.a
+$+:pre_a pre_b pre_a pre_c lib libadd.a
+$<:pre_a
+$?:pre_a pre_b pre_c lib libadd.a
+$*:
+$%:
+
+```
+make Ê×ÏÈÖØ½¨ pre_a pre_b pre_c ÒÀÀµÏî£¬²¢´òÓ¡Æ¥Åäµ½µÄ¾¥ a b c£¬½ÓÏÂÀ´ÖØ½¨ lib ¹æÔò£¬libadd.a ÔÚÖØ½¨¹ý³ÌÖÐ´òÓ¡ $% £¬´Ó´òÓ¡ºÍ´ò°üÃüÁî¿ÉÒÔ¿´³ö $% Õ¹¿ªºó½öÎª add.o ÕâÒ»ÏîÎÄ¼þ£¬µ«¾²Ì¬ÎÄ¼þÄ¿±ê»áÒÀ¾Ý¸ø¶¨µÄÎÄ¼þÁÐ±íÕ¹¿ª¶à´Î¡£×îºó£¬make Ö´ÐÐÖÕ¼«Ä¿±ê all µÄÃüÁîÁÐ±í£¬·Ö±ð´òÓ¡Æä×Ô¶¯»¯±äÁ¿£¬²¢Éú³É all ÎÄ¼þ¡£
+Çë´ó¼Ò×ÐÏ¸¹Û²ì²»Í¬¹æÔòÏÂ×Ô¶¯»¯±äÁ¿µÄ±ä»¯¡£ÓÉÓÚÕâÊÇ³õ´Î½¨Á¢ÖÕ¼«Ä¿±ê£¬Òò´Ë $? µÃµ½µÄÒÀÀµÏîÁÐ±íÊÇÈ«²¿µÄÒÀÀµÏî¡£Ê¹ÓÃ touch ÃüÁî¸üÐÂ pre_a pre_b ÔÙ´Î²âÊÔ£º
+```bash
+touch pre_a pre_b;make
+```
+ÖÕ¶Ë´òÓ¡£º
+```bash
+makefile:17: target 'pre_a' given more than once in the same rule
+make: Warning: Archive 'libadd.a' seems to have been created in deterministic mode. 'add.o' will always be updated. Please consider passing the U flag to ar to avoid the problem.
+$%(in libadd.a): add.o
+ar r libadd.a add.o
+make: Warning: Archive 'libadd.a' seems to have been created in deterministic mode. 'add.o' will always be updated. Please consider passing the U flag to ar to avoid the problem.
+make: Warning: Archive 'libadd.a' seems to have been created in deterministic mode. 'minus.o' will always be updated. Please consider passing the U flag to ar to avoid the problem.
+$%(in libadd.a): minus.o
+ar r libadd.a minus.o
+make: Warning: Archive 'libadd.a' seems to have been created in deterministic mode. 'minus.o' will always be updated. Please consider passing the U flag to ar to avoid the problem.
+$@:all
+$^:pre_a pre_b pre_c lib libadd.a
+$+:pre_a pre_b pre_a pre_c lib libadd.a
+$<:pre_a
+$?:pre_a pre_b lib libadd.a
+$*:
+$%:
+```
+´òÓ¡ÖÐµÄ¾¯¸æ²¿·ÖÔÝÊ±¿ÉÒÔºöÂÔ£¬Èô¶Ô´Ë²¿·Ö¸ÐÐËÈ¤¿ÉÒÔ²éÔÄ GNU make ÊÖ²á¾²Ì¬¿â±àÒëÒ»ÕÂ¡£
+ÏÖÔÚ´òÓ¡µÄ $? ÄÚÈÝÎª pre_a pre_b lib libadd.a£¬pre_a pre_b ÎªÊÖ¶¯¸üÐÂµÄ²¿·Ö£¬¶ø lib ºÍ libadd.a µÄ¸üÐÂÔòÊÇÓÉ¾²Ì¬¿â±àÒë¹æÔòËùÒý·¢¡£
+ÉÏÊöÆß¸ö×Ô¶¯»¯±äÁ¿³ýÁËÖ±½ÓÒýÓÃÍâ£¬»¹¿ÉÒÔÔÚÆäºóÔö¼Ó D »òÕß F ×Ö·û»ñÈ¡Ä¿Â¼ÃûºÍÎÄ¼þÃû£¬
+Èç£º$(@D) ±íÊ¾Ä¿±êÎÄ¼þµÄÄ¿Â¼Ãû£¬$(@F) ±íÊ¾Ä¿±êÎÄ¼þµÄÎÄ¼þÃû¡£ÕâÖÖÓÃ·¨·Ç³£¼òµ¥£¬Ò²ÊÊÓÃÓÚËùÓÐµÄ×Ô¶¯»¯±äÁ¿£¬Çë´ó¼Ò×ÔÐÐÊµÑé²âÊÔ¡£
+
+## Áù¡¢ÊµÑé×Ü½á
+±¾±¾´ÎÊµÑé½éÉÜÁË make µÄ±äÁ¿¶¨Òå·ç¸ñ£¬±äÁ¿µÄÌæ»»ÒýÓÃ£¬»·¾³±äÁ¿¡¢ÃüÁîÐÐ±äÁ¿¡¢Ä¿±êÖ¸¶¨±äÁ¿µÄÊ¹ÓÃ¼°×Ô¶¯»¯±äÁ¿µÄÊ¹ÓÃ¡£
+
+## Æß¡¢¿ÎºóÏ°Ìâ
+Çë×ÔÐÐÉè¼ÆÊµÑé²âÊÔ×Ô¶¯»¯±äÁ¿µÄÄ¿Â¼ÃûºÍÎÄ¼þÃûµÄ»ñÈ¡¡£
+
+## °Ë¡¢²Î¿¼Á´½Ó
+ÎÞ

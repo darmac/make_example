@@ -23,9 +23,13 @@ depen_%:
 	@echo "use depen rule to build:"$@
 	touch $@
 
-lib:libadd.a(add.o)
+lib:libadd.a(add.o minus.o)
+	@echo "$$""?(in $@):" $?
+	touch $@
 	
-libadd.a(add.o):add.o
+libadd.a(add.o minus.o):add.o minus.o
+	@echo "$$""?(in $@):" $?
+	@echo "$$""%(in $@):" $%
 	$(AR) r $@ $%
 
 clean:
