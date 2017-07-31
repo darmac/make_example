@@ -41,7 +41,21 @@ $ git clone https://github.com/darmac/make_example.git
 ## 四、项目文件结构
 ```bash
 .
-
+├── auto：自动化变量的使用
+│?? ├── add.c
+│?? ├── makefile
+│?? └── minus.c
+├── Readme.md
+├── rep：变量的替换
+│?? ├── envi.mk
+│?? ├── makefile
+│?? └── override.mk
+├── style：变量和赋值风格
+│?? ├── append.mk
+│?? ├── direct.mk
+│?? └── makefile
+└── target：目标指定变量
+    └── makefile
 ```
 
 ## 五、实验步骤
@@ -183,6 +197,8 @@ d1:dd1
 d2:dd2
 ```
 请自行分析每一行打印与其原因。
+实验过程如下图所示：
+![5.1](https://dn-anything-about-doc.qbox.me/document-uid66754labid3354timestamp1501510505628.png/wm)
 
 ### 5.2 变量的替换
 #### 5.2.1 替换引用
@@ -295,7 +311,7 @@ vari_d: lmn zzz
 vari_e: ve
 ```
 从打印可以看出无论哪种风格的变量，都需要使用 override 指示符才能防止命令行定义的同名变量覆盖。
-同时，用 override 定义的变量在进行修改时也需呀使用 override，否则修改不会生效，验证方法如下：
+同时，用 override 定义的变量在进行修改时也需要使用 override，否则修改不会生效，验证方法如下：
 ```bash
 make -f override.mk
 ```
@@ -308,6 +324,8 @@ vari_d: lmn zzz
 vari_e:
 ```
 可见命令行没有传入变量，但 vari_c 和 vari_d 仍然无法追加不用 override 指示符时的 “+= zzz”。
+实验过程如下图所示：
+![5.2](https://dn-anything-about-doc.qbox.me/document-uid66754labid3354timestamp1501510546803.png/wm)
 
 ### 5.3 目标指定变量和模式指定变量
 makefile 中定义的变量通常时对整个文件有效，类似于全局变量。除了普通的变量定义以外，还有一种目标指定变量，定义在目标依赖项处，仅对目标上下文可见。这里的目标上下文也包括了目标依赖项的规则。
@@ -373,6 +391,9 @@ file_c : abc
 file_c : def
 ```
 由于此时并非处于 all 目标的上下文中，所以 all 指定的 vari_a 变量失效，取而代之的是原有的值 "abc"，而 pre_% 指定了 vari_b 变量，所以对 pre_a 来说，vari_b 变量依然是 "pat"。
+实验过程如下图所示：
+![5.3](https://dn-anything-about-doc.qbox.me/document-uid66754labid3354timestamp1501510567666.png/wm)
+
 #### 5.4 自动化变量
 在模式规则中，一个模式目标可以匹配多个不同的目标名，但工程重建过程中经常需要指定一个确切的目标名，为了方便获取规则中的具体的目标名和依赖项，makefile 中需要用到自动化变量，自动化变量的取值是根据具体所执行的规则来决定的，取决于所执行规则的目标和依赖文件名。
 总共有七种自动化变量：
@@ -422,14 +443,17 @@ clean:
 ```
 终极目标 all 的依赖项包括 pre_a pre_b pre_c lib 和库文件 libadd.a，其中重复包含了一次 pre_a 依赖项。
 模式规则 pre_% 利用静态模式依赖于对应的 depen_% 规则，打印匹配到的茎，并生成目标文件，库文件规则打印 $% 并打包生成 libadd.a。
-
+由于此处会用到 $(CC) 进行编译，而我们之前将环境变量 CC 赋值为 “def”，现在需要将其修改回来：
+```bash
+export CC=gcc
+```
 现在进入 auto 目录并执行 make：
 ```bash
 cd ../auto;make
 ```
 终端打印：
 ```bash
-makefile:17: target 'pre_a' given more than once in the same rule
+makefile:17: target `pre_a' given more than once in the same rule.
 use depen rule to build:depen_a
 touch depen_a
 $*(in pre_a):a
@@ -442,15 +466,17 @@ use depen rule to build:depen_c
 touch depen_c
 $*(in pre_c):c
 touch pre_c
-cc    -c -o add.o add.c
-cc    -c -o minus.o minus.c
+gcc    -c -o add.o add.c
+gcc    -c -o minus.o minus.c
+$?(in libadd.a): add.o minus.o
 $%(in libadd.a): add.o
 ar r libadd.a add.o
 ar: creating libadd.a
-make: Warning: Archive 'libadd.a' seems to have been created in deterministic mode. 'add.o' will always be updated. Please consider passing the U flag to ar to avoid the problem.
+$?(in libadd.a): add.o minus.o
 $%(in libadd.a): minus.o
 ar r libadd.a minus.o
-make: Warning: Archive 'libadd.a' seems to have been created in deterministic mode. 'minus.o' will always be updated. Please consider passing the U flag to ar to avoid the problem.
+$?(in lib): add.o minus.o
+touch lib
 $@:all
 $^:pre_a pre_b pre_c lib libadd.a
 $+:pre_a pre_b pre_a pre_c lib libadd.a
@@ -458,7 +484,6 @@ $<:pre_a
 $?:pre_a pre_b pre_c lib libadd.a
 $*:
 $%:
-
 ```
 make 首先重建 pre_a pre_b pre_c 依赖项，并打印匹配到的茎 a b c，接下来重建 lib 规则，libadd.a 在重建过程中打印 $% ，从打印和打包命令可以看出 $% 展开后仅为 add.o 这一项文件，但静态文件目标会依据给定的文件列表展开多次。最后，make 执行终极目标 all 的命令列表，分别打印其自动化变量，并生成 all 文件。
 请大家仔细观察不同规则下自动化变量的变化。由于这是初次建立终极目标，因此 $? 得到的依赖项列表是全部的依赖项。使用 touch 命令更新 pre_a pre_b 再次测试：
@@ -467,27 +492,21 @@ touch pre_a pre_b;make
 ```
 终端打印：
 ```bash
-makefile:17: target 'pre_a' given more than once in the same rule
-make: Warning: Archive 'libadd.a' seems to have been created in deterministic mode. 'add.o' will always be updated. Please consider passing the U flag to ar to avoid the problem.
-$%(in libadd.a): add.o
-ar r libadd.a add.o
-make: Warning: Archive 'libadd.a' seems to have been created in deterministic mode. 'add.o' will always be updated. Please consider passing the U flag to ar to avoid the problem.
-make: Warning: Archive 'libadd.a' seems to have been created in deterministic mode. 'minus.o' will always be updated. Please consider passing the U flag to ar to avoid the problem.
-$%(in libadd.a): minus.o
-ar r libadd.a minus.o
-make: Warning: Archive 'libadd.a' seems to have been created in deterministic mode. 'minus.o' will always be updated. Please consider passing the U flag to ar to avoid the problem.
+makefile:17: target `pre_a' given more than once in the same rule.
 $@:all
 $^:pre_a pre_b pre_c lib libadd.a
 $+:pre_a pre_b pre_a pre_c lib libadd.a
 $<:pre_a
-$?:pre_a pre_b lib libadd.a
+$?:pre_a pre_b
 $*:
 $%:
 ```
-打印中的警告部分暂时可以忽略，若对此部分感兴趣可以查阅 GNU make 手册静态库编译一章。
-现在打印的 $? 内容为 pre_a pre_b lib libadd.a，pre_a pre_b 为手动更新的部分，而 lib 和 libadd.a 的更新则是由静态库编译规则所引发。
+由于 pre_a pre_b 被手动更新过，现在打印的 $? 内容为 pre_a pre_b。
 上述七个自动化变量除了直接引用外，还可以在其后增加 D 或者 F 字符获取目录名和文件名，
 如：$(@D) 表示目标文件的目录名，$(@F) 表示目标文件的文件名。这种用法非常简单，也适用于所有的自动化变量，请大家自行实验测试。
+实验过程如下图所示：
+![5.4A](https://dn-anything-about-doc.qbox.me/document-uid66754labid3354timestamp1501510592667.png/wm)
+![5.4B](https://dn-anything-about-doc.qbox.me/document-uid66754labid3354timestamp1501510603830.png/wm)
 
 ## 六、实验总结
 本本次实验介绍了 make 的变量定义风格，变量的替换引用，环境变量、命令行变量、目标指定变量的使用及自动化变量的使用。
