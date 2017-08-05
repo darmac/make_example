@@ -9,17 +9,15 @@ client_LIBS = protocol
 
 .PHONY:all
 
-all:$(PROGRAMS)
-
 define PROGRAM_template
-$(1):$$($(1)_OBJS) $$($(1)_LIBS:%=-l%)
-ALL_OBJS += $$($(1)_OBJS)
+$(1):
+	touch $$($(1)_OBJS) $$($(1)_LIBS)
+	@echo $$@ " build finished!"
 endef
 
 $(foreach prog,$(PROGRAMS),$(eval $(call PROGRAM_template,$(prog))))
 
 $(PROGRAMS):
-	$(LINK.o) $^ $(LDLIBS) -o $@
 
 clean:
-	rm -f $(ALL_OBJS) $(PROGRAMS)
+	$(RM) *.o $(server_LIBS) $(client_LIBS)

@@ -1,6 +1,6 @@
 #test wrods related function
 
-.PHONY:raw find filt filt_out sort word word_list first_word words join
+.PHONY:raw find filt filt_out sort word word_list first_word words join call
 
 str_a := cxx.o n.o fxx.o xy.c fab.o zy.py jor.py abc.o 
 str_b := $(findstring xx,$(str_a)) #make sure if xx include in str_a
@@ -25,6 +25,8 @@ str_m := $(words $(str_a)) #cacu words num
 str_join := ./dira/ ./dirb/ ./dirc/ ./dird/ ./dire/ ./dirf/
 str_n := $(join $(str_join),$(str_a))
 
+part_rev = $(4) $(3) $(2) $(1)
+str_o = $(call part_rev,a,b,c,d,e,f,g) #must use "=" 
 
 raw:
 	@echo "str_a=" $(str_a)
@@ -60,3 +62,6 @@ words:raw
 join:raw
 	@echo "str_join=" $(str_join)
 	@echo "str_n=" $(str_n)
+
+call:
+	@echo "str_o=" $(str_o)
