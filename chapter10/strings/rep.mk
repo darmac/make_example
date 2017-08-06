@@ -9,7 +9,7 @@ str_c := $(patsubst %.o,%.c,$(str_a))
 str_d := $(patsubst .o,.c,$(str_a))
 str_e := $(patsubst a.o,a.c,$(str_a))
 
-str_1 := abc.o  def.o     gh.o    i.o     #end
+str_1 := "      a      b         c        "
 str_2 := $(strip $(str_1))
 
 sub:raw
